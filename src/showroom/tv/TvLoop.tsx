@@ -255,7 +255,7 @@ function SceneCatalogue() {
         {items.map((p, i) => (
           <div key={p.id} className="flex min-h-0 flex-col bg-ivory sr-tv-rise" style={rise(500 + i * 110)}>
             <div className="relative min-h-0 flex-1">
-              <img src={p.image.src} alt={p.image.alt} className="absolute inset-[8%] h-[84%] w-[84%] object-contain mix-blend-multiply" />
+              <img src={p.image?.src} alt={p.image?.alt} className="absolute inset-[8%] h-[84%] w-[84%] object-contain mix-blend-multiply" />
             </div>
             <div className="border-t border-ink-on-bone/10 px-[0.9vw] py-[1.1vh]">
               <p className="sr-tv-tag text-ember [font-size:0.8rem]">{p.codes?.[0] ?? "—"}</p>
@@ -303,7 +303,7 @@ function SceneSpotlight() {
         </dl>
       </div>
       <div key={`img-${p.id}`} className="relative bg-ivory sr-tv-enter">
-        <img src={p.image.src} alt={p.image.alt} className="absolute inset-[10%] h-[80%] w-[80%] object-contain mix-blend-multiply" />
+        <img src={p.image?.src} alt={p.image?.alt} className="absolute inset-[10%] h-[80%] w-[80%] object-contain mix-blend-multiply" />
         <div className="absolute bottom-[3vh] right-[2.4vw] flex gap-[0.4vw]">
           {items.map((it, n) => (
             <span key={it.id} className={`h-[0.6vh] w-[2.6vw] ${n === i ? "bg-ember" : "bg-ink-on-bone/15"}`} />
