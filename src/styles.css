@@ -142,3 +142,257 @@
     color: var(--color-foreground);
   }
 }
+
+/* site-import tokens: begin (generated; re-import replaces this block) */
+/* Imported clone roles use prefixed Tailwind utilities
+   (bg-site-import-primary, text-site-import-foreground, …); edit the
+   --site-import-* variables to restyle the clone. Unprefixed roles theme new UI. */
+:root {
+  --background: oklch(0.95418 0.00344 247.86);
+  --site-import-background: oklch(0.95418 0.00344 247.86);
+  --foreground: oklch(0.28015 0.00612 314.72);
+  --site-import-foreground: oklch(0.28015 0.00612 314.72);
+  --primary: oklch(0.67743 0.18943 41.76);
+  --site-import-primary: oklch(0.67743 0.18943 41.76);
+  --primary-foreground: oklch(0.985 0 0);
+  --site-import-primary-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.57067 0.17452 39.39);
+  --site-import-accent: oklch(0.57067 0.17452 39.39);
+  --border: oklch(1 0 0 / 0.1);
+  --site-import-border: oklch(1 0 0 / 0.1);
+  --card: oklch(1 0 0);
+  --site-import-card: oklch(1 0 0);
+  --muted-foreground: oklch(0.50294 0.02076 253.47);
+  --site-import-muted-foreground: oklch(0.50294 0.02076 253.47);
+  --muted: oklch(0.91392 0.00695 247.9);
+  --site-import-muted: oklch(0.91392 0.00695 247.9);
+}
+/* Design tokens captured from the imported site, registered as Tailwind
+   utilities (bg-<name>, text-<name>, font-<name>). var() values live in
+   the imported stylesheet's :root. */
+@theme inline {
+  --font-sans: Barlow, system-ui, sans-serif;
+  --color-site-import-background: var(--site-import-background);
+  --color-site-import-foreground: var(--site-import-foreground);
+  --color-site-import-primary: var(--site-import-primary);
+  --color-site-import-primary-foreground: var(--site-import-primary-foreground);
+  --color-site-import-accent: var(--site-import-accent);
+  --color-site-import-border: var(--site-import-border);
+  --color-site-import-card: var(--site-import-card);
+  --color-site-import-muted-foreground: var(--site-import-muted-foreground);
+  --color-site-import-muted: var(--site-import-muted);
+  --color-accent-green: var(--accent-green);
+  --color-accent-orange: var(--accent-orange);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-dk: var(--brand-orange-dk);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-2: var(--charcoal-2);
+  --color-charcoal-3: var(--charcoal-3);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-50: var(--gray-50);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --color-green: var(--green);
+  --color-grey: var(--grey);
+  --color-grey-lt: var(--grey-lt);
+  --color-mid-grey: var(--mid-grey);
+  --color-muted: var(--muted);
+  --color-navy: var(--navy);
+  --color-navy-darker: var(--navy-darker);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-mid: var(--navy-mid);
+  --color-offwhite: var(--offwhite);
+  --color-orange: var(--orange);
+  --color-silver: var(--silver);
+  --color-silver-dark: var(--silver-dark);
+  --color-steel: var(--steel);
+  --color-steel-dim: var(--steel-dim);
+  --color-steel-lt: var(--steel-lt);
+  --color-text: var(--text);
+  --color-w-card: var(--w-card);
+  --color-w-ink: var(--w-ink);
+  --color-w-line: var(--w-line);
+  --color-w-line-2: var(--w-line-2);
+  --color-w-muted: var(--w-muted);
+  --color-w-orange: var(--w-orange);
+  --color-w-paper: var(--w-paper);
+  --color-w-wood: var(--w-wood);
+}
+@theme reference {
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.28);
+  --shadow-md: 0 8px 28px rgba(30,34,40,0.18);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.10);
+  --shadow-xl: 0 32px 80px rgba(0,0,0,0.36);
+}
+/* site-import tokens: end */
+
+/* ==========================================================================
+   ARMAND SHOWROOM DESIGN SYSTEM
+   Deep charcoal + warm bone neutrals + brushed-steel hairlines, with the
+   Armand ember orange used sparingly as a signal colour.
+   ========================================================================== */
+@font-face { font-family: "Saira"; font-weight: 500; font-display: swap; src: url("/site-assets/c4f57ca8b5dd9bbf.woff2") format("woff2"); }
+@font-face { font-family: "Saira"; font-weight: 600; font-display: swap; src: url("/site-assets/b9207de09b033e4e.woff2") format("woff2"); }
+@font-face { font-family: "Saira"; font-weight: 700; font-display: swap; src: url("/site-assets/291350c0b1f66c19.woff2") format("woff2"); }
+@font-face { font-family: "Saira"; font-weight: 800; font-display: swap; src: url("/site-assets/0eddaee8c15a9c96.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 300; font-display: swap; src: url("/site-assets/337181467d54d1e7.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 400; font-display: swap; src: url("/site-assets/fe837f158636c3ff.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 500; font-display: swap; src: url("/site-assets/5ab0900f45feff37.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-weight: 600; font-display: swap; src: url("/site-assets/cb512f5c99b8ed8d.woff2") format("woff2"); }
+
+:root {
+  /* Armand charcoal #1e1d1f family */
+  --sr-ink: oklch(0.2265 0.0035 314.7);
+  --sr-ink-deep: oklch(0.165 0.003 314.7);
+  --sr-ink-raised: oklch(0.275 0.004 314.7);
+  --sr-line: oklch(0.96 0.01 80 / 0.12);
+  --sr-line-strong: oklch(0.96 0.01 80 / 0.28);
+  /* warm neutrals */
+  --sr-bone: oklch(0.928 0.011 80);
+  --sr-bone-deep: oklch(0.86 0.014 78);
+  --sr-ivory: oklch(0.975 0.006 85);
+  --sr-ash: oklch(0.72 0.01 80);
+  --sr-ash-dim: oklch(0.56 0.008 80);
+  --sr-ink-on-bone: oklch(0.24 0.004 314.7);
+  /* Armand orange #F36523 */
+  --sr-ember: oklch(0.6774 0.1894 41.76);
+  --sr-ember-soft: oklch(0.6774 0.1894 41.76 / 0.16);
+  /* brushed steel */
+  --sr-steel: oklch(0.78 0.006 250);
+  --sr-gradient-steel: linear-gradient(90deg, transparent, oklch(0.85 0.006 250 / 0.6), transparent);
+  --sr-gradient-scrim-left: linear-gradient(90deg, oklch(0.165 0.003 314.7 / 0.94) 0%, oklch(0.165 0.003 314.7 / 0.7) 38%, transparent 72%);
+  --sr-gradient-scrim-bottom: linear-gradient(0deg, oklch(0.165 0.003 314.7 / 0.95) 0%, oklch(0.165 0.003 314.7 / 0.4) 40%, transparent 70%);
+  --sr-gradient-vignette: radial-gradient(120% 90% at 50% 40%, transparent 40%, oklch(0.12 0.003 314.7 / 0.75) 100%);
+  --sr-shadow-plinth: 0 40px 80px -30px oklch(0.1 0 0 / 0.55);
+  --sr-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --font-display: "Saira", "Barlow", system-ui, sans-serif;
+  --font-body: "Barlow", system-ui, sans-serif;
+  --color-ink: var(--sr-ink);
+  --color-ink-deep: var(--sr-ink-deep);
+  --color-ink-raised: var(--sr-ink-raised);
+  --color-line: var(--sr-line);
+  --color-line-strong: var(--sr-line-strong);
+  --color-bone: var(--sr-bone);
+  --color-bone-deep: var(--sr-bone-deep);
+  --color-ivory: var(--sr-ivory);
+  --color-ash: var(--sr-ash);
+  --color-ash-dim: var(--sr-ash-dim);
+  --color-ink-on-bone: var(--sr-ink-on-bone);
+  --color-ember: var(--sr-ember);
+  --color-ember-soft: var(--sr-ember-soft);
+  --color-steel-hl: var(--sr-steel);
+}
+
+/* Type scale tuned for a 1920x1080 display viewed from several metres */
+@utility sr-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  font-size: clamp(4rem, 8.2vw, 10.5rem);
+}
+@utility sr-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.98;
+  font-size: clamp(2.6rem, 4.4vw, 5.6rem);
+}
+@utility sr-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  font-size: clamp(1.6rem, 2.2vw, 2.75rem);
+}
+@utility sr-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: clamp(0.85rem, 0.95vw, 1.15rem);
+}
+@utility sr-lead {
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.4;
+  font-size: clamp(1.25rem, 1.45vw, 1.85rem);
+}
+@utility sr-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: clamp(1.05rem, 1.1vw, 1.4rem);
+}
+@utility sr-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: clamp(0.95rem, 1vw, 1.25rem);
+}
+
+@utility sr-hairline {
+  height: 1px;
+  background: var(--sr-gradient-steel);
+}
+@utility sr-scrim-left { background: var(--sr-gradient-scrim-left); }
+@utility sr-scrim-bottom { background: var(--sr-gradient-scrim-bottom); }
+@utility sr-vignette { background: var(--sr-gradient-vignette); }
+@utility sr-plinth-shadow { box-shadow: var(--sr-shadow-plinth); }
+@utility sr-no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility sr-touch {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.35s var(--sr-ease), background-color 0.35s var(--sr-ease), border-color 0.35s var(--sr-ease), opacity 0.35s var(--sr-ease);
+  &:active { transform: scale(0.97); }
+  &:focus-visible { outline: 3px solid var(--sr-ember); outline-offset: 4px; }
+}
+
+/* Motion */
+@keyframes sr-kenburns { from { transform: scale(1.02) translate3d(0, 0, 0); } to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); } }
+@keyframes sr-kenburns-rev { from { transform: scale(1.14) translate3d(1.5%, 0, 0); } to { transform: scale(1.03) translate3d(0, 0, 0); } }
+@keyframes sr-fade-up { from { opacity: 0; transform: translate3d(0, 2.5rem, 0); } to { opacity: 1; transform: none; } }
+@keyframes sr-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sr-mask-up { from { clip-path: inset(100% 0 0 0); transform: translate3d(0, 1.5rem, 0); } to { clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes sr-reveal-x { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes sr-line-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sr-pulse-ring { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes sr-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -0.8rem, 0); } }
+@keyframes sr-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sr-breathe { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+
+@utility sr-anim-kenburns { animation: sr-kenburns calc(16s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-kenburns-rev { animation: sr-kenburns-rev calc(16s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-fade-up { animation: sr-fade-up calc(1.1s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-fade { animation: sr-fade calc(0.9s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-mask-up { animation: sr-mask-up calc(1.2s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-reveal-x { animation: sr-reveal-x calc(1.4s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-line { transform-origin: left; animation: sr-line-grow calc(1.4s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-anim-float { animation: sr-float 7s ease-in-out infinite; }
+@utility sr-anim-breathe { animation: sr-breathe 2.8s ease-in-out infinite; }
+@utility sr-anim-progress { transform-origin: left; animation-name: sr-progress; animation-timing-function: linear; animation-fill-mode: both; }
+@utility sr-pulse-ring { animation: sr-pulse-ring 2.2s var(--sr-ease) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-root *, .sr-root *::before, .sr-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
