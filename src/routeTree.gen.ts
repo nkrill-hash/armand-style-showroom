@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TvRouteImport } from './routes/tv'
 import { Route as WebsiteRouteImport } from './routes/website'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TvRoute = TvRouteImport.update({
+  id: '/tv',
+  path: '/tv',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WebsiteRoute = WebsiteRouteImport.update({
@@ -25,27 +31,31 @@ const WebsiteRoute = WebsiteRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/tv': typeof TvRoute
   '/website': typeof WebsiteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/tv': typeof TvRoute
   '/website': typeof WebsiteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/tv': typeof TvRoute
   '/website': typeof WebsiteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/website'
+  fullPaths: '/' | '/tv' | '/website'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/website'
-  id: '__root__' | '/' | '/website'
+  to: '/' | '/tv' | '/website'
+  id: '__root__' | '/' | '/tv' | '/website'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TvRoute: typeof TvRoute
   WebsiteRoute: typeof WebsiteRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tv': {
+      id: '/tv'
+      path: '/tv'
+      fullPath: '/tv'
+      preLoaderRoute: typeof TvRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/website': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TvRoute: TvRoute,
   WebsiteRoute: WebsiteRoute,
 }
 export const routeTree = rootRouteImport
