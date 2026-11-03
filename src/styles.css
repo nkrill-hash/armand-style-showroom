@@ -419,6 +419,45 @@
     linear-gradient(0deg, oklch(0.14 0.003 314.7 / 0.85) 0%, transparent 32%);
 }
 
+/* TV loop — print/signage direction: mixed-case headlines, hard frames, slow drift */
+@keyframes sr-tv-drift { from { transform: scale(1.0); } to { transform: scale(1.045); } }
+@keyframes sr-tv-enter { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes sr-tv-rise { from { opacity: 0; transform: translate3d(0, 1.2rem, 0); } to { opacity: 1; transform: none; } }
+@keyframes sr-tv-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@utility sr-tv-drift { animation: sr-tv-drift calc(10s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-enter { animation: sr-tv-enter calc(0.9s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
+@utility sr-tv-rise { animation: sr-tv-rise calc(0.7s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sr-tv-type { animation: sr-tv-type calc(0.6s / var(--sr-speed, 1)) steps(14, end) both; }
+@utility sr-tv-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-size: clamp(3rem, 5.4vw, 7rem);
+}
+@utility sr-tv-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 3.2vw, 4.2rem);
+}
+@utility sr-tv-tag {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(0.85rem, 0.9vw, 1.15rem);
+}
+@utility sr-tv-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.38;
+  font-size: clamp(1.15rem, 1.35vw, 1.75rem);
+}
+@utility sr-tv-num { font-variant-numeric: tabular-nums; }
+
 @media (prefers-reduced-motion: reduce) {
   .sr-root *, .sr-root *::before, .sr-root *::after {
     animation-duration: 0.01ms !important;
