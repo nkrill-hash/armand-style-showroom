@@ -243,11 +243,11 @@ export function Attract({ onStart }: { onStart: () => void }) {
       aria-label="Touch to explore the Armand showroom"
     >
       {Prev && (
-        <div key={`p-${state.prev}-${state.cycle}`} className="absolute inset-0">
+        <div key={`${state.prev}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
           <Prev />
         </div>
       )}
-      <div key={`c-${state.current}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
+      <div key={`${state.current}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
         <Current />
       </div>
 

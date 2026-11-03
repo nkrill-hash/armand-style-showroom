@@ -86,7 +86,7 @@ function PhotoScene({
     <div className="absolute inset-0 bg-ink-deep">
       <img src={image} alt="" className={`absolute inset-0 h-full w-full object-cover ${motion === "pan" ? "sr-tv-pan" : "sr-tv-zoom"}`} />
       <div className={`absolute inset-0 ${side === "left" ? "sr-tv-scrim" : "sr-tv-scrim-right"}`} />
-      <div className={`relative flex h-full flex-col justify-center pb-[10vh] ${side === "left" ? "items-start pl-[6vw]" : "items-end pr-[6vw] text-right [&_p]:ml-auto"}`}>
+      <div className={`relative flex h-full flex-col justify-center pb-[17vh] pt-[15vh] ${side === "left" ? "items-start pl-[6vw]" : "items-end pr-[6vw] text-right [&_p]:ml-auto"}`}>
         {children}
       </div>
       <Illustrative />
@@ -137,7 +137,7 @@ function SceneBeforeAfter() {
       </div>
       <div className="absolute inset-y-0 left-0 w-[4px] -translate-x-full bg-ember shadow-[0_0_40px_6px_var(--sr-ember)] sr-tv-wipe-line" />
       <div className="absolute inset-0 sr-tv-scrim" />
-      <div className="relative flex h-full flex-col justify-center pb-[10vh] pl-[6vw]">
+      <div className="relative flex h-full flex-col justify-center pb-[17vh] pl-[6vw] pt-[15vh]">
         <Eyebrow>Before &amp; After</Eyebrow>
         <Headline lines={["From shell", "to showpiece."]} accent={1} />
         <Lead delay={1600}>Bring us your empty room and your sizes. We&apos;ll bring the boards, the cutting and the fittings.</Lead>
@@ -212,7 +212,7 @@ function SceneSpotlight() {
   if (!p) return null;
   return (
     <div className="absolute inset-0 grid grid-cols-[46fr_54fr] bg-ink">
-      <div className="relative flex flex-col justify-center pb-[10vh] pl-[6vw] pr-[3vw]">
+      <div className="relative flex flex-col justify-center pb-[17vh] pl-[6vw] pr-[3vw] pt-[15vh]">
         <Eyebrow>New Edition 2026</Eyebrow>
         <div key={p.id}>
           <h2 className="sr-tv-mega mt-[3.4vh] text-ivory sr-anim-mask-up [font-size:clamp(3rem,6vw,7.5rem)]">{p.name}</h2>
@@ -256,14 +256,14 @@ function SceneServices() {
   return (
     <div className="absolute inset-0 bg-ink">
       <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(var(--sr-ivory)_1px,transparent_1px),linear-gradient(90deg,var(--sr-ivory)_1px,transparent_1px)] [background-size:8vw_8vw]" />
-      <div className="relative flex h-full flex-col px-[6vw] pb-[16vh] pt-[16vh]">
+      <div className="relative flex h-full flex-col px-[6vw] pb-[18vh] pt-[15vh]">
         <Eyebrow>Everything Under One Roof</Eyebrow>
         <div className="mt-[5vh] grid flex-1 grid-cols-4 grid-rows-2 border-l border-t border-line">
           {services.map((s, i) => (
-            <div key={s.id} className="flex flex-col justify-between border-b border-r border-line p-[1.8vw] sr-anim-fade-up" style={{ animationDelay: `${300 + i * 140}ms` }}>
+            <div key={s.id} className="flex flex-col justify-between border-b border-r border-line p-[1.5vw] sr-anim-fade-up" style={{ animationDelay: `${300 + i * 140}ms` }}>
               <span className="sr-heading text-ember">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h3 className="sr-title text-ivory [font-size:clamp(1.6rem,2.5vw,3.2rem)]">{s.name}</h3>
+                <h3 className="sr-title text-ivory [font-size:clamp(1.3rem,1.9vw,2.4rem)]">{s.name}</h3>
                 <p className="sr-body mt-[1.2vh] text-ash">{s.description}</p>
               </div>
             </div>
@@ -279,7 +279,7 @@ function SceneHowItWorks() {
     <div className="absolute inset-0 bg-ink-deep">
       <img src={cutting} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25 sr-tv-zoom" />
       <div className="absolute inset-0 sr-vignette" />
-      <div className="relative flex h-full flex-col justify-center px-[6vw] pb-[12vh]">
+      <div className="relative flex h-full flex-col justify-center px-[6vw] pb-[17vh] pt-[15vh]">
         <Eyebrow>How It Works</Eyebrow>
         <Headline lines={["Quote in", "2 hours."]} accent={1} />
         <div className="mt-[6vh] grid grid-cols-4 gap-[1.4vw]">
@@ -298,33 +298,33 @@ function SceneHowItWorks() {
 
 function SceneCta() {
   return (
-    <div className="absolute inset-0 bg-ember">
-      <div className="absolute inset-0 opacity-25 mix-blend-multiply">
-        <img src={boardsStock} alt="" className="h-full w-full object-cover sr-tv-zoom" />
-      </div>
+    <div className="absolute inset-0 bg-ink-deep">
+      <img src={boardsStock} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30 sr-tv-zoom" />
+      <div className="absolute inset-0 sr-tv-scrim" />
+      <div className="absolute inset-y-0 left-0 w-[0.6vw] bg-ember" />
       <div className="relative grid h-full grid-cols-[1fr_auto] items-center gap-[6vw] px-[6vw]">
         <div>
           <Logo className="w-[15vw] sr-anim-fade-up" />
-          <p className="sr-eyebrow mt-[5vh] text-ivory/85 sr-anim-fade-up [animation-delay:300ms]">WhatsApp your sizes for a quote</p>
-          <p className="sr-tv-mega mt-[2.6vh] text-ivory sr-anim-mask-up [animation-delay:500ms] [font-size:clamp(3.5rem,7.6vw,10rem)]">{contact.whatsappDisplay}</p>
+          <p className="sr-eyebrow mt-[6vh] text-ivory/85 sr-anim-fade-up [animation-delay:300ms]">WhatsApp your sizes for a quote</p>
+          <p className="sr-tv-mega mt-[2.6vh] whitespace-nowrap text-ember sr-anim-mask-up [animation-delay:500ms] [font-size:clamp(3rem,6.2vw,8rem)]">{contact.whatsappDisplay}</p>
           <div className="mt-[5vh] grid max-w-[54vw] grid-cols-2 gap-[3vw] sr-anim-fade-up [animation-delay:1100ms]">
             <div>
               <p className="sr-eyebrow text-ivory/70">Visit us</p>
               {contact.addressLines.map((l) => (
-                <p key={l} className="sr-heading mt-[1vh] text-ivory">{l}</p>
+                <p key={l} className="sr-lead mt-[1vh] text-ivory">{l}</p>
               ))}
             </div>
             <div>
               <p className="sr-eyebrow text-ivory/70">Open</p>
               {contact.hours.map((h) => (
-                <p key={h.days} className="sr-heading mt-[1vh] text-ivory">
-                  {h.days} <span className="text-ivory/70">{h.time}</span>
+                <p key={h.days} className="sr-lead mt-[1vh] whitespace-nowrap text-ivory">
+                  {h.days} <span className="text-ash">{h.time}</span>
                 </p>
               ))}
             </div>
           </div>
         </div>
-        <div className="w-[19vw] sr-anim-fade-up [animation-delay:900ms] [&_figcaption]:text-ivory">
+        <div className="w-[18vw] sr-anim-fade-up [animation-delay:900ms]">
           <QrCode value={WA_LINK} label="Scan to WhatsApp us" />
         </div>
       </div>
@@ -364,18 +364,18 @@ function ContactBar({ visible }: { visible: boolean }) {
           </span>
           <div>
             <p className="sr-eyebrow text-ash [font-size:0.72rem]">WhatsApp for a quote</p>
-            <p className="sr-heading text-ivory">{contact.whatsappDisplay}</p>
+            <p className="sr-heading whitespace-nowrap text-ivory">{contact.whatsappDisplay}</p>
           </div>
         </div>
         <span className="h-[5vh] w-px bg-line-strong" />
         <div>
           <p className="sr-eyebrow text-ash [font-size:0.72rem]">Visit</p>
-          <p className="sr-body text-ivory">{contact.addressLines.join(", ")}</p>
+          <p className="sr-body whitespace-nowrap text-ivory">{contact.addressLines[0]}, Bulawayo</p>
         </div>
         <span className="h-[5vh] w-px bg-line-strong" />
         <div>
           <p className="sr-eyebrow text-ash [font-size:0.72rem]">Open</p>
-          <p className="sr-body text-ivory">Mon–Fri 08:00–17:00 · Sat 08:00–13:00</p>
+          <p className="sr-body whitespace-nowrap text-ivory">Mon–Fri 08:00–17:00 · Sat 08:00–13:00</p>
         </div>
         <div className="ml-auto flex items-center gap-[1vw]">
           <span className="sr-label text-ash">{contact.websiteDisplay}</span>
@@ -446,12 +446,12 @@ export function TvLoop() {
       onContextMenu={(e) => e.preventDefault()}
       aria-label={`${brand.fullName} showroom display`}
     >
-      {prev && (
-        <div key={`p-${prev.id}-${state.cycle}`} className="absolute inset-0">
-          {Prev && <Prev />}
+      {prev && Prev && (
+        <div key={`${prev.id}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
+          <Prev />
         </div>
       )}
-      <div key={`c-${scene.id}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
+      <div key={`${scene.id}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
         <Current />
       </div>
 
