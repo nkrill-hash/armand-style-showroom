@@ -406,7 +406,7 @@
   text-transform: uppercase;
   line-height: 0.88;
   letter-spacing: -0.01em;
-  font-size: clamp(4rem, 9.4vw, 12rem);
+  font-size: clamp(3.6rem, 8.2vw, 10.5rem);
 }
 @utility sr-tv-scrim {
   background:
