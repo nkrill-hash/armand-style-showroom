@@ -389,6 +389,36 @@
 @utility sr-anim-progress { transform-origin: left; animation-name: sr-progress; animation-timing-function: linear; animation-fill-mode: both; }
 @utility sr-pulse-ring { animation: sr-pulse-ring 2.2s var(--sr-ease) infinite; }
 
+/* Marketing-TV loop (/tv) */
+@keyframes sr-tv-zoom { from { transform: scale(1.0); } to { transform: scale(1.12); } }
+@keyframes sr-tv-pan { from { transform: scale(1.12) translate3d(2%, 0, 0); } to { transform: scale(1.12) translate3d(-2%, 0, 0); } }
+@keyframes sr-tv-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes sr-tv-wipe-line { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(100vw, 0, 0); } }
+@keyframes sr-tv-count { from { opacity: 0; transform: translate3d(0, 40%, 0); } to { opacity: 1; transform: none; } }
+@utility sr-tv-zoom { animation: sr-tv-zoom calc(12s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-pan { animation: sr-tv-pan calc(12s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-wipe { animation: sr-tv-wipe calc(3.6s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) 1.8s both; }
+@utility sr-tv-wipe-line { animation: sr-tv-wipe-line calc(3.6s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) 1.8s both; }
+@utility sr-tv-count { animation: sr-tv-count calc(1s / var(--sr-speed, 1)) var(--sr-ease) both; }
+@utility sr-tv-mega {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  font-size: clamp(3.6rem, 8.2vw, 10.5rem);
+}
+@utility sr-tv-scrim {
+  background:
+    linear-gradient(90deg, oklch(0.14 0.003 314.7 / 0.92) 0%, oklch(0.14 0.003 314.7 / 0.55) 42%, transparent 75%),
+    linear-gradient(0deg, oklch(0.14 0.003 314.7 / 0.85) 0%, transparent 32%);
+}
+@utility sr-tv-scrim-right {
+  background:
+    linear-gradient(270deg, oklch(0.14 0.003 314.7 / 0.92) 0%, oklch(0.14 0.003 314.7 / 0.55) 42%, transparent 75%),
+    linear-gradient(0deg, oklch(0.14 0.003 314.7 / 0.85) 0%, transparent 32%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sr-root *, .sr-root *::before, .sr-root *::after {
     animation-duration: 0.01ms !important;

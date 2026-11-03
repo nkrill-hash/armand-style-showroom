@@ -20,7 +20,7 @@ export function Projects() {
           <Eyebrow className="sr-anim-fade-up">Supply Portfolio</Eyebrow>
           <h1 className="sr-title mt-[2vh] text-ivory sr-anim-mask-up">Projects We&apos;ve Supplied</h1>
           <p className="sr-lead mt-[2vh] text-ash sr-anim-fade-up [animation-delay:200ms]">
-            Project gallery coming soon — photos of finished kitchens, wardrobes and fit-outs made with Armand boards and fittings.
+            Kitchens, wardrobes and fit-outs made with Armand boards and fittings. Concept imagery shown while our project gallery is being photographed.
           </p>
         </div>
         <div className="flex gap-[0.8vw] sr-anim-fade-up [animation-delay:300ms]">
@@ -42,7 +42,10 @@ export function Projects() {
         {list.map((p, i) => (
           <button key={p.id} type="button" onClick={() => setOpen(p)} className="sr-touch group flex min-h-0 flex-col text-left sr-anim-fade-up" style={{ animationDelay: `${200 + i * 90}ms` }}>
             {p.images[0] ? (
-              <img src={p.images[0].src} alt={p.images[0].alt} className="min-h-0 w-full flex-1 rounded-3xl object-cover" />
+              <div className="relative min-h-0 w-full flex-1 overflow-hidden rounded-3xl">
+                <img src={p.images[0].src} alt={p.images[0].alt} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-active:scale-[1.03]" />
+                {p.imagesAreIllustrative && <IllustrativeTag />}
+              </div>
             ) : (
               <Placeholder label="Project Image" className="min-h-0 w-full flex-1 rounded-3xl" />
             )}
@@ -53,7 +56,10 @@ export function Projects() {
           </button>
         ))}
         <div className="flex min-h-0 flex-col sr-anim-fade-up [animation-delay:500ms]">
-          <BeforeAfter before={pair?.before ?? null} after={pair?.after ?? null} className="min-h-0 w-full flex-1" />
+          <div className="relative min-h-0 w-full flex-1">
+            <BeforeAfter before={pair?.before ?? null} after={pair?.after ?? null} className="h-full w-full" />
+            {pair?.imagesAreIllustrative && <IllustrativeTag className="bottom-[1.6vh] top-auto" />}
+          </div>
           <div className="mt-[2vh]">
             <div className="sr-eyebrow text-ash-dim">Before / After</div>
             <h2 className="sr-heading mt-[0.8vh] text-ivory">{pair?.title ?? "Transformation"}</h2>
@@ -67,7 +73,7 @@ export function Projects() {
             <div className="grid grid-cols-2 grid-rows-2 gap-2 p-2">
               {(open.images.length ? open.images : [null, null, null]).slice(0, 3).map((img, n) =>
                 img ? (
-                  <img key={n} src={img.src} alt={img.alt} className={cn("h-full w-full rounded-2xl object-cover", n === 0 && "row-span-2")} />
+                  <img key={n} src={img.src} alt={img.alt} className={cn("h-full w-full rounded-2xl object-cover", n === 0 && "col-span-2 row-span-2")} />
                 ) : (
                   <Placeholder key={n} label="Project Image" className={cn("rounded-2xl", n === 0 && "row-span-2")} />
                 ),
@@ -81,6 +87,7 @@ export function Projects() {
               <h2 className="sr-title mt-[2vh] text-ivory">{open.name}</h2>
               {open.location && <p className="sr-label mt-[1.6vh] text-ash">{open.location}</p>}
               {open.description && <p className="sr-lead mt-[3vh] text-ash">{open.description}</p>}
+              {open.imagesAreIllustrative && <p className="sr-label mt-[3vh] text-ash-dim">Illustrative concept imagery</p>}
               <TouchButton variant="ember" size="lg" className="mt-auto self-start" onClick={() => { setOpen(null); openEnquiry(); }}>
                 Start your project <ArrowIcon />
               </TouchButton>
@@ -89,5 +96,13 @@ export function Projects() {
         </div>
       )}
     </div>
+  );
+}
+
+function IllustrativeTag({ className }: { className?: string }) {
+  return (
+    <span className={cn("pointer-events-none absolute left-[1vw] top-[1.6vh] rounded-full bg-ink-deep/70 px-[0.9vw] py-[0.6vh] sr-eyebrow text-ivory/80 backdrop-blur-md [font-size:0.7rem]", className)}>
+      Illustrative
+    </span>
   );
 }

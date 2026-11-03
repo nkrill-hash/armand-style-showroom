@@ -46,6 +46,12 @@ export const SHOWROOM_CONFIG = {
     /** Global animation speed multiplier (1 = normal, 0.8 = slower, 1.2 = faster). */
     ANIMATION_SPEED: 1,
   },
+  tv: {
+    /** How long each scene of the marketing-TV loop (/tv) stays on screen (ms). */
+    SCENE_DURATION: 9000,
+    /** Reload the TV page every N hours so screens pick up content updates. 0 = never. */
+    RELOAD_EVERY_HOURS: 6,
+  },
 } as const;
 
 export type ShowroomConfig = typeof SHOWROOM_CONFIG;
