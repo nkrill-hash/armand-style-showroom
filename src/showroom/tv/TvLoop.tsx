@@ -2,7 +2,6 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import boardsStock from "@/assets/tv-boards-stock.jpg";
 import cutting from "@/assets/tv-cutting.jpg";
 import edging from "@/assets/tv-edging.jpg";
-import hardware from "@/assets/tv-hardware.jpg";
 import granite from "@/assets/tv-granite.jpg";
 import kitchen from "@/assets/project-kitchen.jpg";
 import kitchenBefore from "@/assets/project-kitchen-before.jpg";
@@ -14,195 +13,263 @@ import { productById } from "../data/products";
 import { processSteps, services } from "../data/services";
 import { buildWhatsAppLink } from "../lib/links";
 import { Logo } from "../components/primitives";
-import { ProductVisual } from "../components/ProductVisual";
 import { QrCode } from "../components/QrCode";
+import type { Product } from "../types";
 
 /**
- * Hands-free marketing loop for TVs (no touch). Every scene keeps the
- * WhatsApp number and address on screen. All photography in this loop is
- * AI-generated concept imagery and is labelled "Illustrative".
+ * Hands-free marketing loop for TVs (no touch).
+ * Visual direction: trade-catalogue / shop signage — a fixed charcoal
+ * "broadcast frame" (header + contact strip), light paper stages, hard-edged
+ * photo frames with captions, real catalogue products and codes.
+ * Every scene keeps the WhatsApp number and address on screen.
+ * Room/workshop photos are AI concept images and carry an "Illustrative" caption.
  */
 
 const { SCENE_DURATION, RELOAD_EVERY_HOURS } = SHOWROOM_CONFIG.tv;
 const { contact, brand } = SHOWROOM_CONFIG;
 const WA_LINK = buildWhatsAppLink(contact.whatsappNumber, "Hi Armand, I saw you on the showroom screen and would like a quote.") ?? contact.website;
 
-const ALL_IMAGES = [boardsStock, cutting, edging, hardware, granite, kitchen, kitchenBefore, wardrobe, office];
+const ALL_IMAGES = [boardsStock, cutting, edging, granite, kitchen, kitchenBefore, wardrobe, office];
+
+const CATALOGUE_IDS = ["hg838", "a6025", "hook-3698", "neo-mixer", "maris-sink", "gola-c", "carousel-wb0069", "runners", "castors-cpl", "enviro-bins"];
+
+const products = (ids: string[]) => ids.map(productById).filter((p): p is Product => p !== undefined);
 
 /* ─── Building blocks ─────────────────────────────────────────────────────── */
 
-function Eyebrow({ children, delay = 200 }: { children: ReactNode; delay?: number }) {
-  return (
-    <div className="flex items-center gap-[1.2vw] sr-anim-fade-up" style={{ animationDelay: `${delay}ms` }}>
-      <span className="h-[2px] w-[3.2vw] bg-ember" />
-      <span className="sr-eyebrow text-ivory/80">{children}</span>
-    </div>
-  );
-}
+const rise = (ms: number): CSSProperties => ({ animationDelay: `${ms}ms` });
 
-function Headline({ lines, accent, delay = 400 }: { lines: string[]; accent?: number; delay?: number }) {
+/** Section tag, e.g. "02 — Kitchens". */
+function Tag({ n, children, tone = "ink", delay = 150 }: { n?: string; children: ReactNode; tone?: "ink" | "ivory"; delay?: number }) {
   return (
-    <h2 className="sr-tv-mega mt-[3.4vh] text-ivory">
-      {lines.map((l, i) => (
-        <span key={l} className="block overflow-hidden pb-[0.06em]">
-          <span className={`block sr-anim-mask-up ${i === accent ? "text-ember" : ""}`} style={{ animationDelay: `${delay + i * 260}ms` }}>
-            {l}
-          </span>
-        </span>
-      ))}
-    </h2>
-  );
-}
-
-function Lead({ children, delay = 1300 }: { children: ReactNode; delay?: number }) {
-  return (
-    <p className="sr-lead mt-[4vh] max-w-[36vw] text-ivory/80 sr-anim-fade-up" style={{ animationDelay: `${delay}ms` }}>
-      {children}
+    <p className={`sr-tv-tag flex items-center gap-[0.9vw] sr-tv-rise ${tone === "ink" ? "text-ink-on-bone/70" : "text-ivory/70"}`} style={rise(delay)}>
+      {n && <span className="bg-ember px-[0.5vw] py-[0.3vh] text-ivory">{n}</span>}
+      <span>{children}</span>
     </p>
   );
 }
 
-function Illustrative() {
+/** Hard-edged photo with a printed caption underneath. */
+function Plate({ src, caption, className = "", tone = "ink", delay = 0 }: { src: string; caption: string; className?: string; tone?: "ink" | "ivory"; delay?: number }) {
   return (
-    <span className="absolute right-[3vw] top-[5.2vh] rounded-full border border-line bg-ink-deep/50 px-[1vw] py-[0.7vh] sr-eyebrow text-ivory/60 backdrop-blur-md [font-size:0.72rem]">
-      Illustrative
-    </span>
+    <figure className={`flex min-h-0 flex-col ${className}`}>
+      <div className="relative min-h-0 flex-1 overflow-hidden bg-ink sr-anim-reveal-x" style={rise(delay)}>
+        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-drift" />
+      </div>
+      <figcaption className={`mt-[1.2vh] flex justify-between sr-tv-tag [font-size:0.78rem] ${tone === "ink" ? "text-ink-on-bone/55" : "text-ivory/50"}`}>
+        <span>{caption}</span>
+        <span>Illustrative image</span>
+      </figcaption>
+    </figure>
   );
 }
 
-/** Full-bleed photo with slow camera move, scrim and copy block. */
-function PhotoScene({
-  image,
-  side = "left",
-  motion = "zoom",
-  children,
-}: {
-  image: string;
-  side?: "left" | "right";
-  motion?: "zoom" | "pan";
-  children: ReactNode;
-}) {
-  return (
-    <div className="absolute inset-0 bg-ink-deep">
-      <img src={image} alt="" className={`absolute inset-0 h-full w-full object-cover ${motion === "pan" ? "sr-tv-pan" : "sr-tv-zoom"}`} />
-      <div className={`absolute inset-0 ${side === "left" ? "sr-tv-scrim" : "sr-tv-scrim-right"}`} />
-      <div className={`relative flex h-full flex-col justify-center pb-[17vh] pt-[15vh] ${side === "left" ? "items-start pl-[6vw]" : "items-end pr-[6vw] text-right [&_p]:ml-auto"}`}>
-        {children}
-      </div>
-      <Illustrative />
-    </div>
-  );
+function Bone({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`absolute inset-0 bg-bone text-ink-on-bone ${className}`}>{children}</div>;
+}
+
+function Dark({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`absolute inset-0 bg-ink text-ivory ${className}`}>{children}</div>;
 }
 
 /* ─── Scenes ─────────────────────────────────────────────────────────────── */
 
 function SceneOpen() {
+  const words = ["Boards.", "Cutting.", "Fittings."];
   return (
-    <div className="absolute inset-0 bg-ink-deep">
-      <img src={boardsStock} alt="" className="absolute inset-0 h-full w-full object-cover opacity-45 sr-tv-pan" />
-      <div className="absolute inset-0 sr-vignette" />
-      <div className="relative flex h-full flex-col items-center justify-center pb-[8vh] text-center">
-        <Logo className="w-[26vw] sr-anim-fade-up" />
-        <div className="sr-hairline mt-[5vh] w-[40vw] sr-anim-line [animation-delay:600ms]" />
-        <h1 className="sr-tv-mega mt-[5vh] flex gap-[2.2vw] text-ivory [font-size:clamp(3rem,6.6vw,8.5rem)]">
-          {["Build.", "Design.", "Transform."].map((w, i) => (
-            <span key={w} className={`sr-anim-mask-up ${i === 2 ? "text-ember" : ""}`} style={{ animationDelay: `${900 + i * 450}ms` }}>
-              {w}
-            </span>
+    <Bone className="grid grid-cols-[44fr_56fr] gap-[3vw] px-[4vw] py-[5vh]">
+      <div className="flex flex-col justify-between">
+        <Logo tone="color" className="w-[17vw] sr-tv-rise" />
+        <div>
+          {words.map((w, i) => (
+            <div key={w} className="flex items-baseline gap-[1.4vw] border-t border-ink-on-bone/20 py-[1.6vh] sr-tv-rise" style={rise(400 + i * 220)}>
+              <span className="sr-tv-tag text-ember">0{i + 1}</span>
+              <span className="sr-tv-h1">{w}</span>
+            </div>
           ))}
-        </h1>
-        <p className="sr-eyebrow mt-[4.5vh] text-ash sr-anim-fade [animation-delay:2600ms]">{brand.strapline}</p>
+          <p className="sr-tv-body mt-[2.4vh] max-w-[32vw] text-ink-on-bone/75 sr-tv-rise" style={rise(1300)}>
+            Board supply, precision cutting, edging and hardware — on Khami Rd, Bulawayo.
+          </p>
+        </div>
       </div>
-      <Illustrative />
-    </div>
+      <Plate src={boardsStock} caption="Board stock" delay={200} />
+    </Bone>
   );
 }
 
 function SceneKitchen() {
   return (
-    <PhotoScene image={kitchen}>
-      <Eyebrow>Kitchen Design &amp; Fitting</Eyebrow>
-      <Headline lines={["Kitchens", "made to", "measure."]} accent={2} />
-      <Lead>Designed and fitted — from boards and granite tops to the final handle.</Lead>
-    </PhotoScene>
+    <Bone className="grid grid-cols-[34fr_66fr] gap-[3vw] px-[4vw] py-[5vh]">
+      <div className="flex flex-col justify-center">
+        <Tag n="01">Kitchen design &amp; fitting</Tag>
+        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(300)}>
+          Kitchens, designed and fitted.
+        </h2>
+        <p className="sr-tv-body mt-[3vh] text-ink-on-bone/75 sr-tv-rise" style={rise(550)}>
+          From boards and tops to the final handle.
+        </p>
+        <ul className="mt-[4vh] border-t border-ink-on-bone/20">
+          {["Boards & edging", "Granite tops", "Sinks & taps", "Hinges, runners, handles"].map((t, i) => (
+            <li key={t} className="flex justify-between border-b border-ink-on-bone/20 py-[1.3vh] sr-tv-body sr-tv-rise" style={rise(800 + i * 140)}>
+              <span>{t}</span>
+              <span className="text-ember">✓</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Plate src={kitchen} caption="Charcoal & walnut kitchen, granite island" delay={100} />
+    </Bone>
   );
 }
 
 function SceneBeforeAfter() {
   return (
-    <div className="absolute inset-0 bg-ink-deep">
-      <img src={kitchenBefore} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-zoom" />
-      <div className="absolute inset-0 sr-tv-wipe">
-        <img src={kitchen} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-zoom" />
+    <Dark className="flex flex-col px-[4vw] py-[4.5vh]">
+      <div className="flex items-end justify-between">
+        <div>
+          <Tag n="02" tone="ivory">Before &amp; after</Tag>
+          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(250)}>
+            Bring us the empty room and your sizes.
+          </h2>
+        </div>
       </div>
-      <div className="absolute inset-y-0 left-0 w-[4px] -translate-x-full bg-ember shadow-[0_0_40px_6px_var(--sr-ember)] sr-tv-wipe-line" />
-      <div className="absolute inset-0 sr-tv-scrim" />
-      <div className="relative flex h-full flex-col justify-center pb-[17vh] pl-[6vw] pt-[15vh]">
-        <Eyebrow>Before &amp; After</Eyebrow>
-        <Headline lines={["From shell", "to showpiece."]} accent={1} />
-        <Lead delay={1600}>Bring us your empty room and your sizes. We&apos;ll bring the boards, the cutting and the fittings.</Lead>
+      <div className="mt-[3.4vh] grid min-h-0 flex-1 grid-cols-2 gap-[1.2vw]">
+        {[
+          { src: kitchenBefore, label: "Before", delay: 300 },
+          { src: kitchen, label: "After", delay: 2200 },
+        ].map((f) => (
+          <figure key={f.label} className="flex min-h-0 flex-col">
+            <div className="relative min-h-0 flex-1 overflow-hidden sr-anim-reveal-x" style={rise(f.delay)}>
+              <img src={f.src} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-drift" />
+              <span className={`absolute left-0 top-0 px-[1vw] py-[0.9vh] sr-tv-tag ${f.label === "After" ? "bg-ember text-ivory" : "bg-ivory text-ink-on-bone"}`}>{f.label}</span>
+            </div>
+            <figcaption className="mt-[1.2vh] flex justify-between sr-tv-tag text-ivory/50 [font-size:0.78rem]">
+              <span>{f.label === "Before" ? "Bare shell" : "Fitted kitchen"}</span>
+              <span>Illustrative image</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
-      <div className="absolute bottom-[16vh] right-[4vw] flex gap-[1vw] sr-anim-fade [animation-delay:1200ms]">
-        <span className="rounded-full bg-ink-deep/70 px-[1.2vw] py-[0.8vh] sr-label text-ivory/80 backdrop-blur-md">Before</span>
-        <span className="rounded-full bg-ember px-[1.2vw] py-[0.8vh] sr-label text-ivory sr-anim-fade [animation-delay:5000ms]">After</span>
+    </Dark>
+  );
+}
+
+const CUT_ROWS = [
+  ["White melamine", "720", "560", "4", "All round"],
+  ["White melamine", "720", "300", "6", "1 long"],
+  ["Oak super wood", "2000", "600", "2", "All round"],
+  ["Grey melamine", "900", "450", "3", "Front"],
+];
+
+function SceneCutting() {
+  return (
+    <Bone className="grid grid-cols-[48fr_52fr] gap-[3vw] px-[4vw] py-[5vh]">
+      <Plate src={cutting} caption="Panel saw, cut to size" />
+      <div className="flex flex-col justify-center">
+        <Tag n="03">Precision cutting</Tag>
+        <h2 className="sr-tv-h1 mt-[2.6vh] sr-tv-rise" style={rise(300)}>
+          Send your sizes. We cut.
+        </h2>
+        <div className="mt-[4vh] border-2 border-ink-on-bone bg-ivory sr-tv-rise" style={rise(600)}>
+          <div className="flex items-center justify-between bg-ink-on-bone px-[1.2vw] py-[1vh] text-ivory">
+            <span className="sr-tv-tag">Cutting list</span>
+            <span className="sr-tv-tag text-ivory/60 [font-size:0.75rem]">Example</span>
+          </div>
+          <table className="w-full sr-tv-body sr-tv-num [font-size:clamp(1rem,1.15vw,1.5rem)]">
+            <thead>
+              <tr className="sr-tv-tag text-ink-on-bone/55 [&>th]:px-[1.2vw] [&>th]:py-[1vh] [&>th]:text-left [&>th]:font-semibold">
+                <th>Board</th>
+                <th>L mm</th>
+                <th>W mm</th>
+                <th>Qty</th>
+                <th>Edge</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CUT_ROWS.map((r, i) => (
+                <tr key={i} className="border-t border-ink-on-bone/15 [&>td]:px-[1.2vw] [&>td]:py-[1.15vh]">
+                  {r.map((c, j) => (
+                    <td key={j}>
+                      <span className="inline-block sr-tv-type" style={rise(1000 + i * 450 + j * 70)}>
+                        {c}
+                      </span>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="sr-tv-body mt-[2.6vh] text-ink-on-bone/75 sr-tv-rise" style={rise(3000)}>
+          WhatsApp it to <strong className="font-semibold text-ink-on-bone">{contact.whatsappDisplay}</strong> — cut ready to assemble or fit.
+        </p>
       </div>
-      <Illustrative />
+    </Bone>
+  );
+}
+
+function FullPhoto({ src, n, tag, title, text, side = "left" }: { src: string; n: string; tag: string; title: string; text: string; side?: "left" | "right" }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-ink">
+      <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-drift" />
+      <div
+        className={`absolute bottom-[5vh] w-[34vw] bg-bone p-[2.4vw] text-ink-on-bone sr-tv-rise ${side === "left" ? "left-[4vw]" : "right-[4vw]"}`}
+        style={rise(500)}
+      >
+        <Tag n={n} delay={700}>
+          {tag}
+        </Tag>
+        <h2 className="sr-tv-h2 mt-[2vh] sr-tv-rise" style={rise(850)}>
+          {title}
+        </h2>
+        <p className="sr-tv-body mt-[1.8vh] text-ink-on-bone/75 sr-tv-rise" style={rise(1050)}>
+          {text}
+        </p>
+      </div>
+      <span className="absolute right-[1.2vw] top-[1.6vh] bg-ink-deep/70 px-[0.7vw] py-[0.5vh] sr-tv-tag text-ivory/70 [font-size:0.72rem]">Illustrative image</span>
     </div>
   );
 }
 
-function SceneCutting() {
-  return (
-    <PhotoScene image={cutting} side="right" motion="pan">
-      <Eyebrow>Precision Cutting</Eyebrow>
-      <Headline lines={["Cut to", "your sizes."]} accent={1} />
-      <Lead>Send your board type and measurements on WhatsApp — we cut them ready to assemble or fit.</Lead>
-    </PhotoScene>
-  );
-}
-
 function SceneEdging() {
-  return (
-    <PhotoScene image={edging}>
-      <Eyebrow>Expert Edging</Eyebrow>
-      <Headline lines={["Every edge.", "Perfect."]} accent={1} />
-      <Lead>A clean, durable finish on every cut edge.</Lead>
-    </PhotoScene>
-  );
+  return <FullPhoto src={edging} n="04" tag="Edging" title="A clean edge on every cut." text="Expert edging for a clean, durable finish on every cut edge." />;
 }
 
-function SceneWardrobe() {
+function SceneCatalogue() {
+  const items = products(CATALOGUE_IDS);
   return (
-    <PhotoScene image={wardrobe} side="right">
-      <Eyebrow>Wardrobes</Eyebrow>
-      <Headline lines={["Storage,", "beautifully", "built."]} accent={2} />
-      <Lead>Wardrobes cut, edged and professionally assembled.</Lead>
-    </PhotoScene>
-  );
-}
-
-function SceneHardware() {
-  const tags = ["Hinges", "Handles", "Drawer Runners", "Locks", "Kitchen Systems", "Sinks & Taps"];
-  return (
-    <PhotoScene image={hardware} motion="pan">
-      <Eyebrow>2026 Product Range</Eyebrow>
-      <h2 className="mt-[3vh] flex items-start text-ivory">
-        <span className="sr-tv-mega text-ember sr-tv-count [animation-delay:400ms] [font-size:clamp(6rem,15vw,19rem)]">700+</span>
-      </h2>
-      <p className="sr-title mt-[1vh] text-ivory sr-anim-fade-up [animation-delay:800ms]">fittings in our catalogue</p>
-      <div className="mt-[4.4vh] flex max-w-[44vw] flex-wrap gap-[0.8vw]">
-        {tags.map((t, i) => (
-          <span key={t} className="rounded-full border border-line-strong bg-ink-deep/40 px-[1.3vw] py-[1vh] sr-label text-ivory/85 backdrop-blur-md sr-anim-fade-up" style={{ animationDelay: `${1200 + i * 140}ms` }}>
-            {t}
-          </span>
+    <Bone className="flex flex-col px-[4vw] py-[4.5vh]">
+      <div className="flex items-end justify-between border-b-2 border-ink-on-bone pb-[2vh]">
+        <div>
+          <Tag n="05">Fittings · Product Range 2026</Tag>
+          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(250)}>
+            Hinges to sinks, on the shelf.
+          </h2>
+        </div>
+        <p className="text-right sr-tv-rise" style={rise(400)}>
+          <span className="block sr-tv-h1 text-ember">700+</span>
+          <span className="sr-tv-tag text-ink-on-bone/60">items in the catalogue</span>
+        </p>
+      </div>
+      <div className="mt-[2.6vh] grid min-h-0 flex-1 grid-cols-5 grid-rows-2 gap-[0.8vw]">
+        {items.map((p, i) => (
+          <div key={p.id} className="flex min-h-0 flex-col bg-ivory sr-tv-rise" style={rise(500 + i * 110)}>
+            <div className="relative min-h-0 flex-1">
+              <img src={p.image.src} alt={p.image.alt} className="absolute inset-[8%] h-[84%] w-[84%] object-contain mix-blend-multiply" />
+            </div>
+            <div className="border-t border-ink-on-bone/10 px-[0.9vw] py-[1.1vh]">
+              <p className="sr-tv-tag text-ember [font-size:0.8rem]">{p.codes?.[0] ?? "—"}</p>
+              <p className="mt-[0.3vh] truncate font-body text-[clamp(0.95rem,1vw,1.3rem)] font-medium">{p.name}</p>
+            </div>
+          </div>
         ))}
       </div>
-    </PhotoScene>
+    </Bone>
   );
 }
 
 function SceneSpotlight() {
-  const items = attractFeaturedIds.map(productById).filter((p) => p !== undefined);
+  const items = products(attractFeaturedIds);
   const [i, setI] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setI((n) => (n + 1) % items.length), SCENE_DURATION / items.length);
@@ -211,86 +278,121 @@ function SceneSpotlight() {
   const p = items[i];
   if (!p) return null;
   return (
-    <div className="absolute inset-0 grid grid-cols-[46fr_54fr] bg-ink">
-      <div className="relative flex flex-col justify-center pb-[17vh] pl-[6vw] pr-[3vw] pt-[15vh]">
-        <Eyebrow>New Edition 2026</Eyebrow>
-        <div key={p.id}>
-          <h2 className="sr-tv-mega mt-[3.4vh] text-ivory sr-anim-mask-up [font-size:clamp(2.6rem,4.6vw,5.8rem)]">{p.name}</h2>
-          {p.codes?.[0] && <p className="sr-heading mt-[3vh] text-ember sr-anim-fade-up [animation-delay:300ms]">{p.codes.slice(0, 2).join(" · ")}</p>}
-          {p.description && <Lead delay={500}>{p.description}</Lead>}
-        </div>
-        <div className="mt-[5vh] flex gap-[0.6vw]">
+    <Bone className="grid grid-cols-[42fr_58fr]">
+      <div key={p.id} className="flex flex-col justify-center bg-ink px-[4vw] text-ivory">
+        <Tag n={`0${i + 1}/0${items.length}`} tone="ivory">
+          New in 2026 · Catalogue p.{p.cataloguePage ?? "—"}
+        </Tag>
+        <h2 className="sr-tv-h2 mt-[2.4vh] sr-tv-rise" style={rise(200)}>
+          {p.name}
+        </h2>
+        {p.description && (
+          <p className="sr-tv-body mt-[2vh] text-ivory/70 sr-tv-rise" style={rise(380)}>
+            {p.description}
+          </p>
+        )}
+        <dl className="mt-[3.6vh] border-t border-line-strong">
+          {(p.codes?.length ? [{ label: "Codes", value: p.codes.slice(0, 3).join("  ·  ") }] : [])
+            .concat((p.specs ?? []).slice(0, 3))
+            .map((s, n) => (
+              <div key={s.label} className="flex gap-[2vw] border-b border-line-strong py-[1.3vh] sr-tv-rise" style={rise(520 + n * 120)}>
+                <dt className="w-[8vw] shrink-0 sr-tv-tag text-ivory/50">{s.label}</dt>
+                <dd className="sr-tv-body sr-tv-num">{s.value}</dd>
+              </div>
+            ))}
+        </dl>
+      </div>
+      <div key={`img-${p.id}`} className="relative bg-ivory sr-tv-enter">
+        <img src={p.image.src} alt={p.image.alt} className="absolute inset-[10%] h-[80%] w-[80%] object-contain mix-blend-multiply" />
+        <div className="absolute bottom-[3vh] right-[2.4vw] flex gap-[0.4vw]">
           {items.map((it, n) => (
-            <span key={it.id} className={`h-[3px] w-[3.4vw] transition-colors duration-700 ${n === i ? "bg-ember" : "bg-line-strong"}`} />
+            <span key={it.id} className={`h-[0.6vh] w-[2.6vw] ${n === i ? "bg-ember" : "bg-ink-on-bone/15"}`} />
           ))}
         </div>
       </div>
-      <div key={p.id} className="relative sr-anim-reveal-x">
-        <ProductVisual image={p.image} eager float fill className="absolute inset-0" padding="p-[20%_18%_26%]" />
+    </Bone>
+  );
+}
+
+function SceneWardrobe() {
+  return (
+    <Bone className="grid grid-cols-[62fr_38fr] gap-[3vw] px-[4vw] py-[5vh]">
+      <Plate src={wardrobe} caption="Oak walk-in wardrobe" delay={100} />
+      <div className="flex flex-col justify-center">
+        <Tag n="06">Wardrobes</Tag>
+        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(300)}>
+          Wardrobes, cut, edged and assembled.
+        </h2>
+        <p className="sr-tv-body mt-[3vh] text-ink-on-bone/75 sr-tv-rise" style={rise(550)}>
+          Shelving, hanging rails, drawers and shoe racks — built to your room.
+        </p>
       </div>
-    </div>
+    </Bone>
   );
 }
 
 function SceneGranite() {
+  return <FullPhoto src={granite} n="07" side="right" tag="Granite" title="Granite tops." text="For kitchens, vanities and counters." />;
+}
+
+function SceneServices() {
   return (
-    <PhotoScene image={granite} side="right" motion="pan">
-      <Eyebrow>Granite Tops</Eyebrow>
-      <Headline lines={["Set in", "stone."]} accent={1} />
-      <Lead>Granite tops for kitchens, vanities and counters.</Lead>
-    </PhotoScene>
+    <Dark className="flex flex-col px-[4vw] py-[4.5vh]">
+      <div className="flex items-end justify-between border-b-2 border-ivory/80 pb-[2vh]">
+        <div>
+          <Tag n="08" tone="ivory">What we do</Tag>
+          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(250)}>
+            Everything for the job, one counter.
+          </h2>
+        </div>
+        <Logo className="w-[11vw] sr-tv-rise" />
+      </div>
+      <div className="grid flex-1 grid-cols-2 gap-x-[4vw]">
+        {services.map((s, i) => (
+          <div key={s.id} className="flex items-center gap-[1.6vw] border-b border-line-strong sr-tv-rise" style={rise(350 + i * 110)}>
+            <span className="w-[2.6vw] sr-tv-tag text-ember">{String(i + 1).padStart(2, "0")}</span>
+            <span className="w-[15vw] shrink-0 font-display text-[clamp(1.4rem,1.9vw,2.5rem)] font-semibold leading-tight tracking-tight">{s.name}</span>
+            <span className="sr-tv-body text-ivory/60 [font-size:clamp(1rem,1.05vw,1.4rem)]">{s.description}</span>
+          </div>
+        ))}
+      </div>
+    </Dark>
   );
 }
 
 function SceneOffice() {
   return (
-    <PhotoScene image={office}>
-      <Eyebrow>Furniture &amp; Interiors</Eyebrow>
-      <Headline lines={["Home.", "Office.", "Done."]} accent={2} />
-      <Lead>Furniture and interior design for the home and office.</Lead>
-    </PhotoScene>
-  );
-}
-
-function SceneServices() {
-  return (
-    <div className="absolute inset-0 bg-ink">
-      <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(var(--sr-ivory)_1px,transparent_1px),linear-gradient(90deg,var(--sr-ivory)_1px,transparent_1px)] [background-size:8vw_8vw]" />
-      <div className="relative flex h-full flex-col px-[6vw] pb-[18vh] pt-[15vh]">
-        <Eyebrow>Everything Under One Roof</Eyebrow>
-        <div className="mt-[5vh] grid flex-1 grid-cols-4 grid-rows-2 border-l border-t border-line">
-          {services.map((s, i) => (
-            <div key={s.id} className="flex flex-col justify-between border-b border-r border-line p-[1.5vw] sr-anim-fade-up" style={{ animationDelay: `${300 + i * 140}ms` }}>
-              <span className="sr-heading text-ember">{String(i + 1).padStart(2, "0")}</span>
-              <div>
-                <h3 className="sr-title text-ivory [font-size:clamp(1.3rem,1.9vw,2.4rem)]">{s.name}</h3>
-                <p className="sr-body mt-[1.2vh] text-ash">{s.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+    <Bone className="grid grid-cols-[34fr_66fr] gap-[3vw] px-[4vw] py-[5vh]">
+      <div className="flex flex-col justify-center">
+        <Tag n="09">Furniture &amp; interiors</Tag>
+        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(300)}>
+          For the home and the office.
+        </h2>
+        <p className="sr-tv-body mt-[3vh] text-ink-on-bone/75 sr-tv-rise" style={rise(550)}>
+          Reception desks, storage, shelving and furniture made from the boards on our racks.
+        </p>
       </div>
-    </div>
+      <Plate src={office} caption="Office reception desk & storage wall" delay={100} />
+    </Bone>
   );
 }
 
 function SceneHowItWorks() {
   return (
-    <div className="absolute inset-0 bg-ink-deep">
-      <img src={cutting} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25 sr-tv-zoom" />
-      <div className="absolute inset-0 sr-vignette" />
-      <div className="relative flex h-full flex-col justify-center px-[6vw] pb-[17vh] pt-[15vh]">
-        <Eyebrow>How It Works</Eyebrow>
-        <Headline lines={["Quote in", "2 hours."]} accent={1} />
-        <div className="mt-[6vh] grid grid-cols-4 gap-[1.4vw]">
-          {processSteps.map((s, i) => (
-            <div key={s.n} className="border-t-2 border-ember pt-[2.4vh] sr-anim-fade-up" style={{ animationDelay: `${1300 + i * 260}ms` }}>
-              <span className="sr-eyebrow text-ash">Step {s.n}</span>
-              <h3 className="sr-heading mt-[1.4vh] text-ivory">{s.title}</h3>
-              <p className="sr-body mt-[1vh] text-ash">{s.text}</p>
-            </div>
-          ))}
-        </div>
+    <div className="absolute inset-0 flex flex-col bg-ember px-[4vw] py-[5vh] text-ink-on-bone">
+      <p className="sr-tv-tag text-ink-on-bone/70 sr-tv-rise">How it works</p>
+      <h2 className="sr-tv-h1 mt-[2vh] max-w-[70vw] sr-tv-rise" style={rise(250)}>
+        Price and delivery confirmed within 2 hours.
+      </h2>
+      <p className="sr-tv-tag mt-[1.6vh] text-ink-on-bone/70 sr-tv-rise" style={rise(400)}>On trading days</p>
+      <div className="mt-auto grid grid-cols-4 border-t-2 border-ink-on-bone">
+        {processSteps.map((s, i) => (
+          <div key={s.n} className={`pr-[2vw] pt-[2.6vh] sr-tv-rise ${i > 0 ? "border-l-2 border-ink-on-bone pl-[1.6vw]" : ""}`} style={rise(700 + i * 220)}>
+            <span className="block font-display text-[clamp(4rem,7vw,9rem)] font-semibold leading-none tracking-tight">{Number(s.n)}</span>
+            <h3 className="mt-[1.6vh] font-display text-[clamp(1.3rem,1.7vw,2.2rem)] font-semibold">{s.title}</h3>
+            <p className="sr-tv-body mt-[0.8vh] text-ink-on-bone/80 [font-size:clamp(1rem,1.1vw,1.45rem)]">{s.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -298,93 +400,122 @@ function SceneHowItWorks() {
 
 function SceneCta() {
   return (
-    <div className="absolute inset-0 bg-ink-deep">
-      <img src={boardsStock} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30 sr-tv-zoom" />
-      <div className="absolute inset-0 sr-tv-scrim" />
-      <div className="absolute inset-y-0 left-0 w-[0.6vw] bg-ember" />
-      <div className="relative grid h-full grid-cols-[1fr_auto] items-center gap-[6vw] px-[6vw]">
-        <div>
-          <Logo className="w-[15vw] sr-anim-fade-up" />
-          <p className="sr-eyebrow mt-[6vh] text-ivory/85 sr-anim-fade-up [animation-delay:300ms]">WhatsApp your sizes for a quote</p>
-          <p className="sr-tv-mega mt-[2.6vh] whitespace-nowrap text-ember sr-anim-mask-up [animation-delay:500ms] [font-size:clamp(3rem,6.2vw,8rem)]">{contact.whatsappDisplay}</p>
-          <div className="mt-[5vh] grid max-w-[54vw] grid-cols-2 gap-[3vw] sr-anim-fade-up [animation-delay:1100ms]">
-            <div>
-              <p className="sr-eyebrow text-ivory/70">Visit us</p>
-              {contact.addressLines.map((l) => (
-                <p key={l} className="sr-lead mt-[1vh] text-ivory">{l}</p>
-              ))}
-            </div>
-            <div>
-              <p className="sr-eyebrow text-ivory/70">Open</p>
-              {contact.hours.map((h) => (
-                <p key={h.days} className="sr-lead mt-[1vh] whitespace-nowrap text-ivory">
-                  {h.days} <span className="text-ash">{h.time}</span>
-                </p>
-              ))}
-            </div>
+    <Dark className="grid grid-cols-[1fr_auto] items-center gap-[5vw] px-[5vw]">
+      <div>
+        <p className="sr-tv-tag text-ivory/60 sr-tv-rise">WhatsApp your sizes for a quote</p>
+        <p className="mt-[2vh] whitespace-nowrap font-display text-[clamp(3rem,7.4vw,9.5rem)] font-semibold leading-none tracking-tight sr-tv-num sr-tv-rise" style={rise(200)}>
+          {contact.whatsappDisplay}
+        </p>
+        <div className="mt-[3vh] h-[0.7vh] w-[12vw] bg-ember sr-anim-line" style={rise(500)} />
+        <div className="mt-[5vh] grid max-w-[58vw] grid-cols-2 gap-[3vw] sr-tv-rise" style={rise(700)}>
+          <div className="border-t border-line-strong pt-[1.6vh]">
+            <p className="sr-tv-tag text-ivory/50">Visit</p>
+            {contact.addressLines.map((l) => (
+              <p key={l} className="sr-tv-body mt-[0.8vh]">
+                {l}
+              </p>
+            ))}
+          </div>
+          <div className="border-t border-line-strong pt-[1.6vh]">
+            <p className="sr-tv-tag text-ivory/50">Open</p>
+            {contact.hours.map((h) => (
+              <p key={h.days} className="sr-tv-body sr-tv-num mt-[0.8vh] whitespace-nowrap">
+                {h.days} <span className="text-ivory/60">{h.time}</span>
+              </p>
+            ))}
           </div>
         </div>
-        <div className="w-[18vw] sr-anim-fade-up [animation-delay:900ms]">
-          <QrCode value={WA_LINK} label="Scan to WhatsApp us" />
-        </div>
       </div>
-    </div>
+      <div className="w-[19vw] sr-tv-rise" style={rise(900)}>
+        <QrCode value={WA_LINK} label="Scan to WhatsApp us" />
+      </div>
+    </Dark>
   );
 }
 
-const SCENES: { id: string; render: () => ReactNode; bar: boolean }[] = [
-  { id: "open", render: SceneOpen, bar: true },
-  { id: "kitchen", render: SceneKitchen, bar: true },
-  { id: "before-after", render: SceneBeforeAfter, bar: true },
-  { id: "cutting", render: SceneCutting, bar: true },
-  { id: "edging", render: SceneEdging, bar: true },
-  { id: "hardware", render: SceneHardware, bar: true },
-  { id: "spotlight", render: SceneSpotlight, bar: true },
-  { id: "wardrobe", render: SceneWardrobe, bar: true },
-  { id: "granite", render: SceneGranite, bar: true },
-  { id: "services", render: SceneServices, bar: true },
-  { id: "office", render: SceneOffice, bar: true },
-  { id: "how", render: SceneHowItWorks, bar: true },
-  { id: "cta", render: SceneCta, bar: false },
+const SCENES: { id: string; label: string; render: () => ReactNode }[] = [
+  { id: "open", label: "Armand", render: SceneOpen },
+  { id: "kitchen", label: "Kitchens", render: SceneKitchen },
+  { id: "before-after", label: "Before & after", render: SceneBeforeAfter },
+  { id: "cutting", label: "Cutting", render: SceneCutting },
+  { id: "edging", label: "Edging", render: SceneEdging },
+  { id: "catalogue", label: "Fittings", render: SceneCatalogue },
+  { id: "spotlight", label: "New in 2026", render: SceneSpotlight },
+  { id: "wardrobe", label: "Wardrobes", render: SceneWardrobe },
+  { id: "granite", label: "Granite", render: SceneGranite },
+  { id: "services", label: "What we do", render: SceneServices },
+  { id: "office", label: "Furniture", render: SceneOffice },
+  { id: "how", label: "How it works", render: SceneHowItWorks },
+  { id: "cta", label: "Get a quote", render: SceneCta },
 ];
 
-/* ─── Persistent contact bar ─────────────────────────────────────────────── */
+/* ─── Frame: header + contact strip ─────────────────────────────────────── */
 
-function ContactBar({ visible }: { visible: boolean }) {
+function useClock() {
+  const [now, setNow] = useState<string | null>(null);
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Africa/Harare" });
+    const tick = () => setNow(fmt.format(new Date()));
+    tick();
+    const t = setInterval(tick, 15_000);
+    return () => clearInterval(t);
+  }, []);
+  return now;
+}
+
+function Header({ index, cycle }: { index: number; cycle: number }) {
+  const clock = useClock();
+  const scene = SCENES[index]!;
   return (
-    <div
-      className={`pointer-events-none absolute inset-x-0 bottom-0 z-20 transition-all duration-1000 ${visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}
-    >
-      <div className="mx-[3vw] mb-[3vh] flex items-center gap-[2.4vw] rounded-[1.4rem] border border-line bg-ink-deep/75 py-[1.6vh] pl-[2vw] pr-[1.6vh] backdrop-blur-xl">
-        <div className="flex items-center gap-[1vw]">
-          <span className="flex h-[4.4vh] w-[4.4vh] items-center justify-center rounded-full bg-ember">
-            <svg viewBox="0 0 24 24" className="h-[55%] w-[55%] fill-ivory" aria-hidden>
-              <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.7.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88z" />
-            </svg>
+    <header className="absolute inset-x-0 top-0 z-20 flex h-[7vh] items-center gap-[2vw] bg-ink-deep px-[2vw] text-ivory">
+      <Logo className="h-[4.4vh] w-auto" />
+      <span className="h-[3vh] w-px bg-line-strong" />
+      <span key={`${scene.id}-${cycle}`} className="sr-tv-tag text-ivory/80 sr-tv-rise">
+        {scene.label}
+      </span>
+      {/* ruler-style progress */}
+      <div className="ml-auto flex h-[2.2vh] items-end gap-[0.25vw]">
+        {SCENES.map((s, n) => (
+          <span key={s.id} className="relative h-full w-[1.6vw] overflow-hidden">
+            <span className={`absolute inset-x-0 bottom-0 ${n === index ? "h-full bg-ember" : n < index ? "h-[45%] bg-ivory/60" : "h-[45%] bg-ivory/15"}`} />
           </span>
-          <div>
-            <p className="sr-eyebrow text-ash [font-size:0.72rem]">WhatsApp for a quote</p>
-            <p className="sr-heading whitespace-nowrap text-ivory">{contact.whatsappDisplay}</p>
-          </div>
-        </div>
-        <span className="h-[5vh] w-px bg-line-strong" />
+        ))}
+      </div>
+      <span className="w-[5vw] text-right sr-tv-tag sr-tv-num text-ivory/60">{clock ?? ""}</span>
+    </header>
+  );
+}
+
+function ContactStrip() {
+  return (
+    <footer className="absolute inset-x-0 bottom-0 z-20 flex h-[11vh] items-stretch bg-ink-deep text-ivory">
+      <div className="flex items-center gap-[1.2vw] bg-ember px-[2vw] text-ink-on-bone">
+        <svg viewBox="0 0 24 24" className="h-[4.6vh] w-[4.6vh] fill-current" aria-hidden>
+          <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.7.3 1.260.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.890-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.89 9.88z" />
+        </svg>
         <div>
-          <p className="sr-eyebrow text-ash [font-size:0.72rem]">Visit</p>
-          <p className="sr-body whitespace-nowrap text-ivory">{contact.addressLines[0]}, Bulawayo</p>
-        </div>
-        <span className="h-[5vh] w-px bg-line-strong" />
-        <div>
-          <p className="sr-eyebrow text-ash [font-size:0.72rem]">Open</p>
-          <p className="sr-body whitespace-nowrap text-ivory">Mon–Fri 08:00–17:00 · Sat 08:00–13:00</p>
-        </div>
-        <div className="ml-auto flex items-center gap-[1vw]">
-          <span className="sr-label text-ash">{contact.websiteDisplay}</span>
-          <div className="w-[8.4vh]">
-            <QrCode value={WA_LINK} />
-          </div>
+          <p className="sr-tv-tag [font-size:0.78rem]">WhatsApp for a quote</p>
+          <p className="whitespace-nowrap font-display text-[clamp(1.6rem,2.3vw,3rem)] font-semibold leading-none tracking-tight sr-tv-num">{contact.whatsappDisplay}</p>
         </div>
       </div>
-    </div>
+      <div className="flex flex-1 items-center gap-[2.4vw] px-[2.4vw]">
+        <div>
+          <p className="sr-tv-tag text-ivory/45 [font-size:0.75rem]">Visit</p>
+          <p className="sr-tv-body whitespace-nowrap [font-size:clamp(1rem,1.15vw,1.5rem)]">{contact.addressLines[0]}, Bulawayo</p>
+        </div>
+        <span className="h-[5vh] w-px bg-line-strong" />
+        <div>
+          <p className="sr-tv-tag text-ivory/45 [font-size:0.75rem]">Open</p>
+          <p className="sr-tv-body sr-tv-num whitespace-nowrap [font-size:clamp(1rem,1.15vw,1.5rem)]">Mon–Fri 08:00–17:00 · Sat 08:00–13:00</p>
+        </div>
+        <span className="ml-auto sr-tv-tag text-ivory/60">{contact.websiteDisplay}</span>
+      </div>
+      <div className="flex items-center bg-ivory px-[0.8vh]">
+        <div className="h-[9.4vh] w-[9.4vh] [&_figure]:gap-0 [&_div]:rounded-none [&_div]:shadow-none [&_div]:p-0">
+          <QrCode value={WA_LINK} />
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -403,7 +534,6 @@ export function TvLoop() {
     return () => clearTimeout(t);
   }, [state.current]);
 
-  // Preload all imagery once.
   useEffect(() => {
     ALL_IMAGES.forEach((src) => {
       const img = new Image();
@@ -427,7 +557,6 @@ export function TvLoop() {
     };
   }, []);
 
-  // Click/Enter toggles fullscreen (handy when setting up the TV).
   const toggleFullscreen = () => {
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     else document.documentElement.requestFullscreen?.().catch(() => {});
@@ -446,35 +575,18 @@ export function TvLoop() {
       onContextMenu={(e) => e.preventDefault()}
       aria-label={`${brand.fullName} showroom display`}
     >
-      {prev && Prev && (
-        <div key={`${prev.id}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
-          <Prev />
+      <Header index={state.current} cycle={state.cycle} />
+      <div className="absolute inset-x-0 bottom-[11vh] top-[7vh] overflow-hidden">
+        {prev && Prev && (
+          <div key={`${prev.id}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
+            <Prev />
+          </div>
+        )}
+        <div key={`${scene.id}-${state.cycle}`} className="absolute inset-0 sr-tv-enter">
+          <Current />
         </div>
-      )}
-      <div key={`${scene.id}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
-        <Current />
       </div>
-
-      {/* brand mark */}
-      {scene.id !== "open" && scene.id !== "cta" && (
-        <div className="absolute left-[3vw] top-[4.4vh] z-20 sr-anim-fade">
-          <Logo className="w-[9vw]" />
-        </div>
-      )}
-
-      {/* progress */}
-      <div className="absolute inset-x-[3vw] top-[2vh] z-20 flex gap-[0.4vw]">
-        {SCENES.map((s, n) => (
-          <span key={s.id} className="relative h-[2px] flex-1 overflow-hidden bg-line">
-            {n === state.current && (
-              <span key={`${n}-${state.cycle}`} className="absolute inset-0 bg-ivory/80 sr-anim-progress" style={{ animationDuration: `${SCENE_DURATION}ms` }} />
-            )}
-            {n < state.current && <span className="absolute inset-0 bg-ivory/40" />}
-          </span>
-        ))}
-      </div>
-
-      <ContactBar visible={scene.bar} />
+      <ContactStrip />
     </main>
   );
 }
