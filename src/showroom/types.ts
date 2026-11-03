@@ -78,6 +78,8 @@ export interface Project {
   description?: string;
   images: ProductImage[];
   isPlaceholder: boolean;
+  /** AI-generated concept imagery — always labelled on screen, never a real job. */
+  imagesAreIllustrative?: boolean;
 }
 
 export interface BeforeAfterPair {
@@ -85,6 +87,7 @@ export interface BeforeAfterPair {
   title: string;
   before: ProductImage;
   after: ProductImage;
+  imagesAreIllustrative?: boolean;
 }
 
 export interface FeaturedCollection {
