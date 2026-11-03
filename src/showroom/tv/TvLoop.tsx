@@ -215,8 +215,8 @@ function SceneSpotlight() {
       <div className="relative flex flex-col justify-center pb-[17vh] pl-[6vw] pr-[3vw] pt-[15vh]">
         <Eyebrow>New Edition 2026</Eyebrow>
         <div key={p.id}>
-          <h2 className="sr-tv-mega mt-[3.4vh] text-ivory sr-anim-mask-up [font-size:clamp(3rem,6vw,7.5rem)]">{p.name}</h2>
-          {p.codes?.[0] && <p className="sr-heading mt-[3vh] text-ember sr-anim-fade-up [animation-delay:300ms]">{p.codes.join(" · ")}</p>}
+          <h2 className="sr-tv-mega mt-[3.4vh] text-ivory sr-anim-mask-up [font-size:clamp(2.6rem,4.6vw,5.8rem)]">{p.name}</h2>
+          {p.codes?.[0] && <p className="sr-heading mt-[3vh] text-ember sr-anim-fade-up [animation-delay:300ms]">{p.codes.slice(0, 2).join(" · ")}</p>}
           {p.description && <Lead delay={500}>{p.description}</Lead>}
         </div>
         <div className="mt-[5vh] flex gap-[0.6vw]">
