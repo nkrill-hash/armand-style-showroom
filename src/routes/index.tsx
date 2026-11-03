@@ -1,24 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Showroom } from "@/showroom/Showroom";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Armand Showroom — Build. Design. Transform." },
+      {
+        name: "description",
+        content:
+          "Interactive digital showroom for Armand Carpentry & Designs, Bulawayo — boards, cutting and fittings, the 2026 product range, spaces and contact.",
+      },
+      { property: "og:title", content: "Armand Showroom — Build. Design. Transform." },
+      {
+        property: "og:description",
+        content: "Explore Armand's hinges, handles, kitchen systems, sinks and more in an interactive showroom.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#1e1d1f" },
+    ],
+  }),
+  component: Showroom,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
