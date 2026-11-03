@@ -303,7 +303,7 @@ function SceneSpotlight() {
         </dl>
       </div>
       <div key={`img-${p.id}`} className="relative bg-ivory sr-tv-enter">
-        <img src={p.image?.src} alt={p.image?.alt} className="absolute inset-[10%] h-[80%] w-[80%] object-contain mix-blend-multiply" />
+        <img src={p.image?.src} alt={p.image?.alt} className="absolute inset-[24%] h-[52%] w-[52%] object-contain mix-blend-multiply" />
         <div className="absolute bottom-[3vh] right-[2.4vw] flex gap-[0.4vw]">
           {items.map((it, n) => (
             <span key={it.id} className={`h-[0.6vh] w-[2.6vw] ${n === i ? "bg-ember" : "bg-ink-on-bone/15"}`} />
