@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Architecture rules
+- The showroom is a single fullscreen route (`/`) driven by an in-app screen stack in `src/showroom/state.tsx`, not router navigation — kiosk back/home/idle-reset must never leave the page.
+- All showroom content (products, categories, spaces, services, projects, contacts) lives as typed data in `src/showroom/data` and `src/showroom/config.ts`; screens only render data, so the catalogue can grow without UI changes.
+- The imported armand.co.zw homepage stays at `/website` in its own route file with its captured stylesheet; keep its markup in that file.
