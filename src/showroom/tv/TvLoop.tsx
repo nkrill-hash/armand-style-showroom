@@ -435,6 +435,8 @@ export function TvLoop() {
 
   const scene = SCENES[state.current]!;
   const prev = state.prev >= 0 ? SCENES[state.prev]! : null;
+  const Current = scene.render;
+  const Prev = prev?.render;
 
   return (
     <main
@@ -446,11 +448,11 @@ export function TvLoop() {
     >
       {prev && (
         <div key={`p-${prev.id}-${state.cycle}`} className="absolute inset-0">
-          {prev.render()}
+          {Prev && <Prev />}
         </div>
       )}
       <div key={`c-${scene.id}-${state.cycle}`} className="absolute inset-0 sr-anim-fade [animation-duration:1.4s]">
-        {scene.render()}
+        <Current />
       </div>
 
       {/* brand mark */}
