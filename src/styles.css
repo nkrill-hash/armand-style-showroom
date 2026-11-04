@@ -458,6 +458,50 @@
 }
 @utility sr-tv-num { font-variant-numeric: tabular-nums; }
 
+/* TV loop — motion layer */
+@keyframes sr-tv-kb-a { from { transform: scale(1.04) translate3d(2%, 1%, 0); } to { transform: scale(1.2) translate3d(-3%, -2%, 0); } }
+@keyframes sr-tv-kb-b { from { transform: scale(1.22) translate3d(-3%, 0, 0); } to { transform: scale(1.05) translate3d(2%, -1%, 0); } }
+@keyframes sr-tv-kb-c { from { transform: scale(1.12) translate3d(0, 4%, 0); } to { transform: scale(1.18) translate3d(0, -4%, 0); } }
+@keyframes sr-tv-sweep { 0% { transform: translate3d(-101%, 0, 0); } 45%, 55% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(101%, 0, 0); } }
+@keyframes sr-tv-in { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
+@keyframes sr-tv-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sr-tv-slide-l { from { opacity: 0; transform: translate3d(-6vw, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes sr-tv-slide-r { from { opacity: 0; transform: translate3d(6vw, 0, 0); } to { opacity: 1; transform: none; } }
+@keyframes sr-tv-pop { 0% { opacity: 0; transform: scale(0.6); } 70% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes sr-tv-float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.5deg); } 50% { transform: translate3d(0, -2.2vh, 0) rotate(1.5deg); } }
+@keyframes sr-tv-hero-in { from { opacity: 0; transform: translate3d(8vw, 0, 0) scale(0.85) rotate(4deg); } to { opacity: 1; transform: none; } }
+@keyframes sr-tv-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes sr-tv-marquee-rev { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+@keyframes sr-tv-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes sr-tv-saw { 0% { left: 0%; opacity: 1; } 90% { left: 100%; opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes sr-tv-ba-clip { 0%, 14% { clip-path: inset(0 100% 0 0); } 46%, 58% { clip-path: inset(0 50% 0 0); } 88%, 100% { clip-path: inset(0 0 0 0); } }
+@keyframes sr-tv-ba-handle { 0%, 14% { left: 0%; } 46%, 58% { left: 50%; } 88%, 100% { left: 100%; } }
+@keyframes sr-tv-ring { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.35); opacity: 0; } }
+@keyframes sr-tv-word { 0% { opacity: 0; transform: translate3d(0, 60%, 0); } 12%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translate3d(0, -60%, 0); } }
+@utility sr-tv-kb-a { animation: sr-tv-kb-a calc(9.5s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-kb-b { animation: sr-tv-kb-b calc(9.5s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-kb-c { animation: sr-tv-kb-c calc(9.5s / var(--sr-speed, 1)) linear both; }
+@utility sr-tv-sweep { animation: sr-tv-sweep calc(1.3s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
+@utility sr-tv-in { animation: sr-tv-in calc(1.3s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
+@utility sr-tv-fill { transform-origin: left; animation: sr-tv-fill var(--sr-tv-dur, 9s) linear both; }
+@utility sr-tv-slide-l { animation: sr-tv-slide-l calc(0.9s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sr-tv-slide-r { animation: sr-tv-slide-r calc(0.9s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sr-tv-pop { animation: sr-tv-pop calc(0.6s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sr-tv-float { animation: sr-tv-float calc(5s / var(--sr-speed, 1)) ease-in-out infinite; }
+@utility sr-tv-hero-in { animation: sr-tv-hero-in calc(1s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sr-tv-marquee { animation: sr-tv-marquee calc(28s / var(--sr-speed, 1)) linear infinite; }
+@utility sr-tv-marquee-rev { animation: sr-tv-marquee-rev calc(28s / var(--sr-speed, 1)) linear infinite; }
+@utility sr-tv-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sr-tv-draw calc(0.9s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) both; }
+@utility sr-tv-saw { animation: sr-tv-saw calc(2.4s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) both; }
+@utility sr-tv-ba-clip { animation: sr-tv-ba-clip calc(8s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) 0.6s both; }
+@utility sr-tv-ba-handle { animation: sr-tv-ba-handle calc(8s / var(--sr-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) 0.6s both; }
+@utility sr-tv-ring { animation: sr-tv-ring calc(1.8s / var(--sr-speed, 1)) ease-out infinite; }
+@utility sr-tv-word { animation: sr-tv-word calc(2.6s / var(--sr-speed, 1)) cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-tv-marquee, .sr-tv-marquee-rev, .sr-tv-float, .sr-tv-ring { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sr-root *, .sr-root *::before, .sr-root *::after {
     animation-duration: 0.01ms !important;

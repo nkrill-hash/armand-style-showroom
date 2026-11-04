@@ -16,7 +16,7 @@ export const products: Product[] = [
     categoryId: "hinges",
     subcategory: "Concealed Hinges",
     codes: ["HG838A", "HG838B", "HG838C"],
-    image: { src: `${P}/hinge-hg838.webp`, alt: "Soft close clip-on concealed hinge", style: "cutout" },
+    image: { src: `/showroom/hd/hinge-hg838.jpg`, alt: "Soft close clip-on concealed hinge", style: "cutout" },
     description: "35mm concealed hinge and plate with soft-close action.",
     specs: [
       { label: "Cup", value: "35mm" },
@@ -116,7 +116,7 @@ export const products: Product[] = [
     categoryId: "handles",
     subcategory: "Aluminium Handles",
     codes: ["A6025"],
-    image: { src: `${P}/handle-a6025-black.webp`, alt: "Black aluminium round arch handle", style: "cutout" },
+    image: { src: `/showroom/hd/handle-a6025-black.jpg`, alt: "Black aluminium round arch handle", style: "cutout" },
     specs: [
       { label: "Profile", value: "10mm" },
       { label: "Available sizes", value: "96, 128, 160, 192, 224, 256, 288, 320cc" },
@@ -131,14 +131,14 @@ export const products: Product[] = [
     categoryId: "handles",
     subcategory: "Hooks",
     codes: ["3698"],
-    image: { src: `${P}/hook-3698-brass.webp`, alt: "Satin brass hat and coat hook", style: "cutout" },
+    image: { src: `/showroom/hd/hook-3698-brass.jpg`, alt: "Satin brass hat and coat hook", style: "cutout" },
     options: {
       title: "Finishes",
       items: [
         { label: "Black", image: { src: `${P}/hook-3698-black.webp`, alt: "Black hat and coat hook", style: "cutout" } },
         { label: "Brushed Steel", image: { src: `${P}/hook-3698-brushed.webp`, alt: "Brushed steel hat and coat hook", style: "cutout" } },
         { label: "Grey" },
-        { label: "Satin Brass", image: { src: `${P}/hook-3698-brass.webp`, alt: "Satin brass hat and coat hook", style: "cutout" } },
+        { label: "Satin Brass", image: { src: `/showroom/hd/hook-3698-brass.jpg`, alt: "Satin brass hat and coat hook", style: "cutout" } },
       ],
     },
     cataloguePage: 35,
@@ -263,7 +263,7 @@ export const products: Product[] = [
     categoryId: "kitchen",
     subcategory: "Corner Carousels",
     codes: ["WB0069"],
-    image: { src: `${P}/carousel-wb0069.webp`, alt: "Black three-quarter corner carousel", style: "cutout" },
+    image: { src: `/showroom/hd/carousel-wb0069.jpg`, alt: "Black three-quarter corner carousel", style: "cutout" },
     specs: [{ label: "Diameter", value: "Ø720mm" }, { label: "Finish", value: "Black" }],
     cataloguePage: 46,
     source: "catalogue-2026",
@@ -297,7 +297,7 @@ export const products: Product[] = [
     categoryId: "kitchen",
     subcategory: "Refuse Bins",
     codes: ["JC603", "JC602", "JC606", "JC626", "JC636", "JC641"],
-    image: { src: `${P}/enviro-bin.webp`, alt: "Pull out twin waste bin unit", style: "cutout" },
+    image: { src: `/showroom/hd/enviro-bin.jpg`, alt: "Pull out twin waste bin unit", style: "cutout" },
     description: "Base-mounted and side-mounted pull-out bins on soft close slides.",
     options: {
       title: "Base Mounted",
@@ -322,12 +322,12 @@ export const products: Product[] = [
     subcategory: "Taps",
     series: "NEO",
     codes: ["NM0B017", "NM0A017", "NM0S017", "NM0M017"],
-    image: { src: `${P}/tap-neo-brass.webp`, alt: "Brass NEO kitchen mixer tap", style: "cutout" },
+    image: { src: `/showroom/hd/tap-neo-brass.jpg`, alt: "Brass NEO kitchen mixer tap", style: "cutout" },
     options: {
       title: "Finishes",
       items: [
         { label: "Black", code: "NM0B017", image: { src: `${P}/tap-neo-black.webp`, alt: "Black NEO kitchen mixer", style: "cutout" } },
-        { label: "Brass", code: "NM0A017", image: { src: `${P}/tap-neo-brass.webp`, alt: "Brass NEO kitchen mixer", style: "cutout" } },
+        { label: "Brass", code: "NM0A017", image: { src: `/showroom/hd/tap-neo-brass.jpg`, alt: "Brass NEO kitchen mixer", style: "cutout" } },
         { label: "Stainless", code: "NM0S017", image: { src: `${P}/tap-neo-stainless.webp`, alt: "Stainless NEO kitchen mixer", style: "cutout" } },
         { label: "Gunmetal", code: "NM0M017" },
       ],
@@ -342,7 +342,7 @@ export const products: Product[] = [
     subcategory: "Fragranite Sinks",
     series: "Franke",
     codes: ["MRG610-72", "MRG610-52", "MRG610-37"],
-    image: { src: `${P}/sink-maris-black.webp`, alt: "Black fragranite single bowl sink", style: "cutout" },
+    image: { src: `/showroom/hd/sink-maris-black.jpg`, alt: "Black fragranite single bowl sink", style: "cutout" },
     description: "Supplied with 1x90mm basket strainer & waste fitting.",
     specs: [
       { label: "MRG610-72", value: "L760 x W440 x D200mm" },
@@ -352,7 +352,7 @@ export const products: Product[] = [
     options: {
       title: "Colours",
       items: [
-        { label: "Black", image: { src: `${P}/sink-maris-black.webp`, alt: "Black fragranite sink", style: "cutout" } },
+        { label: "Black", image: { src: `/showroom/hd/sink-maris-black.jpg`, alt: "Black fragranite sink", style: "cutout" } },
         { label: "Stone Grey", image: { src: `${P}/sink-maris-grey.webp`, alt: "Stone grey fragranite sink", style: "cutout" } },
         { label: "Polar White" },
       ],
@@ -388,7 +388,7 @@ export const products: Product[] = [
     categoryId: "doors",
     subcategory: "Gola Profile Handles",
     codes: ["SDS013", "SDS014"],
-    image: { src: `${P}/gola-c-profile.webp`, alt: "Gola C-type aluminium profile handle", style: "cutout" },
+    image: { src: `/showroom/hd/gola-c-profile.jpg`, alt: "Gola C-type aluminium profile handle", style: "cutout" },
     description: "For aesthetic, handle-free doors.",
     specs: [
       { label: "SDS013", value: "C-Type Anodized, Length 3m" },
@@ -475,7 +475,7 @@ export const products: Product[] = [
     categoryId: "legs",
     subcategory: "Castors",
     codes: ["CPL50", "CPL75", "CPL100", "CPB50", "CPB75", "CPB100"],
-    image: { src: `${P}/castor-cpl.webp`, alt: "Steel castor with grey rubber wheel", style: "cutout" },
+    image: { src: `/showroom/hd/castor-cpl.jpg`, alt: "Steel castor with grey rubber wheel", style: "cutout" },
     description: "Grey rubber wheel. Versions with brake available.",
     options: {
       title: "Wheel Sizes",
