@@ -513,3 +513,9 @@
 /* TV kit scenes: room photo docks from full width to the left column. */
 @keyframes sr-tv-kit-dock { from { width: 100%; } to { width: 35vw; } }
 @utility sr-tv-kit-dock { width: 100%; animation: sr-tv-kit-dock calc(1.1s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
+
+/* TV "shelf to home" scene: studio shot wipes away to reveal the fitted photo. */
+@keyframes sr-tv-unveil { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
+@keyframes sr-tv-unveil-bar { from { left: 0%; opacity: 1; } 96% { left: 100%; opacity: 1; } to { left: 100%; opacity: 0; } }
+@utility sr-tv-unveil { animation: sr-tv-unveil calc(1.6s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
+@utility sr-tv-unveil-bar { animation: sr-tv-unveil-bar calc(1.6s / var(--sr-speed, 1)) cubic-bezier(0.76, 0, 0.24, 1) both; }
