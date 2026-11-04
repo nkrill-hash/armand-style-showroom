@@ -1,30 +1,31 @@
 import type { Space } from "../types";
-import kitchen from "@/assets/space-kitchen.jpg";
+import kitchen from "@/assets/real/kitchen-island.jpg";
 import bedroom from "@/assets/space-bedroom.jpg";
-import living from "@/assets/space-living.jpg";
+import living from "@/assets/real/lounge-tv-wall.jpg";
 import office from "@/assets/space-office.jpg";
 
 /**
  * Spaces follow Armand's services (kitchens, wardrobes, furniture for the
- * home and office). Images are illustrative inspiration, not Armand projects —
- * swap in real project photography when available and set imageIsIllustrative
- * to false. Hotspot positions are percentages of the image.
+ * home and office). Kitchen and Living use Armand's own photos (cleaned up);
+ * Bedroom and Office are still AI images until real ones arrive.
+ * Hotspot positions are percentages of the image.
  */
 export const spaces: Space[] = [
   {
     id: "kitchen",
     name: "Kitchen",
     intro: "Kitchens designed and fitted, from boards and tops to the final handle.",
-    image: { src: kitchen, alt: "Dark modern kitchen with handle-free cabinetry", style: "photo" },
+    image: { src: kitchen, alt: "Kitchen with black handle-free island, white gloss wall units and blue base cabinets", style: "photo" },
     imageIsIllustrative: false,
     serviceIds: ["kitchens", "boards", "granite", "fittings"],
     hotspots: [
-      { id: "k-tap", label: "Kitchen Mixer", x: 75.5, y: 41, target: { type: "product", id: "neo-mixer" } },
-      { id: "k-sink", label: "Sinks", x: 71, y: 52.5, target: { type: "product", id: "maris-sink" } },
-      { id: "k-gola", label: "Handle-Free Profiles", x: 62, y: 66, target: { type: "product", id: "gola-c" } },
-      { id: "k-granite", label: "Granite Tops", x: 34, y: 54, target: { type: "service", id: "granite" } },
-      { id: "k-boards", label: "Boards & Edging", x: 64, y: 18, target: { type: "service", id: "boards" } },
-      { id: "k-hinge", label: "Soft Close Hinges", x: 46, y: 36, target: { type: "product", id: "hg838" } },
+      { id: "k-tap", label: "Kitchen Mixer", x: 83, y: 46, target: { type: "product", id: "neo-mixer" } },
+      { id: "k-sink", label: "Sinks", x: 78, y: 54, target: { type: "product", id: "maris-sink" } },
+      { id: "k-gola", label: "Handle-Free Profiles", x: 36, y: 66, target: { type: "product", id: "gola-c" } },
+      { id: "k-granite", label: "Worktops", x: 50, y: 52.5, target: { type: "service", id: "granite" } },
+      { id: "k-boards", label: "Boards & Edging", x: 62, y: 30, target: { type: "service", id: "boards" } },
+      { id: "k-hinge", label: "Soft Close Hinges", x: 42, y: 32, target: { type: "product", id: "hg838" } },
+      { id: "k-runners", label: "Drawer Runners", x: 70, y: 60, target: { type: "product", id: "runners" } },
     ],
   },
   {
@@ -46,14 +47,14 @@ export const spaces: Space[] = [
     id: "living",
     name: "Living",
     intro: "Furniture and interior design for the home.",
-    image: { src: living, alt: "Living room with low storage unit on brass legs", style: "photo" },
+    image: { src: living, alt: "Lounge with marble-effect TV wall, oak slats, low TV unit and open shelving", style: "photo" },
     imageIsIllustrative: false,
     serviceIds: ["furniture", "boards", "cutting"],
     hotspots: [
-      { id: "l-legs", label: "Furniture Legs", x: 51, y: 79, target: { type: "product", id: "brass-legs" } },
-      { id: "l-runners", label: "Push-to-Open Runners", x: 64, y: 66, target: { type: "product", id: "runners" } },
-      { id: "l-shelves", label: "Boards & Shelving", x: 34, y: 34, target: { type: "service", id: "boards" } },
-      { id: "l-cutting", label: "Cut to Size", x: 79, y: 66, target: { type: "service", id: "cutting" } },
+      { id: "l-shelves", label: "Boards & Shelving", x: 30, y: 36, target: { type: "service", id: "boards" } },
+      { id: "l-cutting", label: "Cut to Size", x: 46, y: 52, target: { type: "service", id: "cutting" } },
+      { id: "l-edging", label: "Edging", x: 48, y: 80, target: { type: "service", id: "edging" } },
+      { id: "l-runners", label: "Push-to-Open Runners", x: 70, y: 87, target: { type: "product", id: "runners" } },
     ],
   },
   {

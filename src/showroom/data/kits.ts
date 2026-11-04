@@ -1,7 +1,8 @@
 import boardsStock from "@/assets/tv-boards-stock.jpg";
 import edging from "@/assets/tv-edging.jpg";
 import granite from "@/assets/tv-granite.jpg";
-import kitchen from "@/assets/project-kitchen.jpg";
+import kitchen from "@/assets/real/kitchen-island.jpg";
+import finishes from "@/assets/real/board-finishes-wall.jpg";
 import wardrobe from "@/assets/project-wardrobe.jpg";
 import office from "@/assets/project-office.jpg";
 
@@ -32,9 +33,9 @@ export const kits: Kit[] = [
     title: "All you need for your kitchen.",
     intro: "From the boards to the last handle — one list, one counter.",
     hero: kitchen,
-    heroCaption: "Charcoal & walnut kitchen",
+    heroCaption: "Black, white & blue island kitchen",
     items: [
-      { kind: "service", label: "Carcass & doors", title: "Boards, cut & edged", need: "Melamine and super wood, cut to your sizes.", image: boardsStock },
+      { kind: "service", label: "Carcass & doors", title: "Boards, cut & edged", need: "Melamine and super wood, cut to your sizes.", image: finishes },
       { kind: "service", label: "Worktop", title: "Granite tops", need: "Hard-wearing tops for counters and islands.", image: granite },
       { kind: "product", label: "Doors", productId: "hg838", need: "So cupboard doors close softly." },
       { kind: "product", label: "Drawers", productId: "runners", need: "So drawers glide out smoothly." },

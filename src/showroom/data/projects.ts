@@ -1,25 +1,24 @@
 import kitchen from "@/assets/project-kitchen.jpg";
+import realKitchen from "@/assets/real/kitchen-island.jpg";
+import realLounge from "@/assets/real/lounge-tv-wall.jpg";
 import kitchenBefore from "@/assets/project-kitchen-before.jpg";
 import wardrobe from "@/assets/project-wardrobe.jpg";
-import office from "@/assets/project-office.jpg";
 import type { BeforeAfterPair, Project } from "../types";
 
 /**
- * armand.co.zw: "Project gallery coming soon". Until real job photos arrive,
- * these use AI-generated concept imagery, always labelled "Illustrative".
- * To swap in a real project: replace the images, give it its real name and
- * location, and set imagesAreIllustrative: false.
+ * The kitchen and the TV wall are Armand's own photos (cleaned up). The
+ * wardrobe and the before/after pair are still AI images until real ones arrive.
  */
 export const projectCategories = ["Kitchens", "Wardrobes", "Fit-outs"] as const;
 
 export const projects: Project[] = [
   {
     id: "project-kitchen",
-    name: "Charcoal & Walnut Kitchen",
+    name: "Black, White & Blue Island Kitchen",
     category: "Kitchens",
     description:
-      "Handle-free charcoal units, walnut tall cabinets and black granite tops — the kind of kitchen built from Armand boards, cutting, edging and fittings.",
-    images: [{ src: kitchen, alt: "Charcoal and walnut kitchen with granite island (illustrative)", style: "photo" }],
+      "A handle-free black island with a waterfall top, white gloss wall units, blue base cabinets and oak open niches.",
+    images: [{ src: realKitchen, alt: "Kitchen with black handle-free island, white gloss wall units and blue base cabinets", style: "photo" }],
     isPlaceholder: false,
     imagesAreIllustrative: false,
   },
@@ -35,11 +34,11 @@ export const projects: Project[] = [
   },
   {
     id: "project-fitout",
-    name: "Walnut Office Reception",
+    name: "Marble & Oak TV Wall",
     category: "Fit-outs",
     description:
-      "Reception desk, slatted feature wall and storage in walnut and charcoal — furniture and interior design for the office.",
-    images: [{ src: office, alt: "Walnut and charcoal office reception (illustrative)", style: "photo" }],
+      "A marble-effect TV wall framed in oak slats, a long low TV unit, and open oak shelving over a built-in desk.",
+    images: [{ src: realLounge, alt: "Marble-effect TV wall with oak slats, low TV unit and open shelving", style: "photo" }],
     isPlaceholder: false,
     imagesAreIllustrative: false,
   },
