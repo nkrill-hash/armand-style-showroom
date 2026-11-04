@@ -194,8 +194,8 @@ function SceneBeforeAfter() {
           ⇆
         </span>
       </div>
-      <span className="absolute left-[2vw] top-[3vh] bg-ivory px-[1vw] py-[0.9vh] sr-tv-tag text-ink-on-bone">Before · bare shell</span>
-      <span className="absolute right-[2vw] top-[3vh] bg-ember px-[1vw] py-[0.9vh] sr-tv-tag text-ivory">After · fitted kitchen</span>
+      <span className="absolute right-[2vw] top-[3vh] bg-ivory px-[1vw] py-[0.9vh] sr-tv-tag text-ink-on-bone">Before · bare shell</span>
+      <span className="absolute left-[2vw] top-[3vh] bg-ember px-[1vw] py-[0.9vh] sr-tv-tag text-ivory">After · fitted kitchen</span>
       <div className="absolute bottom-[4vh] left-[2vw] max-w-[36vw] bg-bone p-[2vw] text-ink-on-bone sr-tv-slide-l" style={rise(200)}>
         <Tag n="02" delay={300}>
           Before &amp; after
@@ -231,11 +231,11 @@ function SceneCutting() {
       <Plate src={cutting} caption="Panel saw, cut to size" move="c" />
       <div className="flex min-h-0 flex-col justify-center">
         <Tag n="03">Precision cutting</Tag>
-        <h2 className="sr-tv-h1 mt-[2.2vh] sr-tv-rise" style={rise(200)}>
+        <h2 className="sr-tv-h1 mt-[2vh] sr-tv-rise [font-size:clamp(2.6rem,4.2vw,5.4rem)]" style={rise(200)}>
           Send your sizes. We cut.
         </h2>
-        <div className="relative mt-[3.4vh] border-2 border-ink-on-bone bg-ivory p-[1vw] sr-tv-rise" style={rise(400)}>
-          <svg viewBox="0 0 1000 560" className="block h-auto w-full" aria-hidden>
+        <div className="relative mt-[2.6vh] self-start border-2 border-ink-on-bone bg-ivory p-[0.8vw] sr-tv-rise" style={rise(400)}>
+          <svg viewBox="0 0 1000 560" className="block h-[30vh] w-auto" aria-hidden>
             {PIECES.map((p, i) => (
               <g key={i} className="sr-tv-pop" style={{ ...rise(1700 + i * 260), transformOrigin: `${p.x + p.w / 2}px ${p.y + p.h / 2}px` }}>
                 <rect x={p.x + 6} y={p.y + 6} width={p.w - 12} height={p.h - 12} className="fill-ember/15" />
@@ -253,7 +253,7 @@ function SceneCutting() {
             <div className="h-full w-[0.3vw] bg-ember/80 sr-tv-saw" style={rise(800)} />
           </div>
         </div>
-        <div className="mt-[2vh] grid grid-cols-2 gap-x-[2vw]">
+        <div className="mt-[1.6vh] grid grid-cols-2 gap-x-[2vw]">
           {CUT_ROWS.map((r, i) => (
             <p key={r[0]} className="flex items-baseline gap-[0.8vw] border-b border-ink-on-bone/15 py-[0.9vh] sr-tv-num sr-tv-slide-r [font-size:clamp(1rem,1.1vw,1.45rem)]" style={rise(2600 + i * 220)}>
               <span className="font-display font-semibold text-ember">{r[0]}</span>
@@ -411,7 +411,7 @@ function SceneSpotlight() {
         <span key={`n-${p.id}`} className="absolute -right-[1vw] top-[2vh] font-display text-[30vh] font-semibold leading-none text-ink-on-bone/5 sr-tv-slide-r">
           0{i + 1}
         </span>
-        <div key={`img-${p.id}`} className="absolute inset-[9%] sr-tv-hero-in" style={rise(i === 0 ? 0 : -REVEAL)}>
+        <div key={`img-${p.id}`} className="absolute inset-[9%] mix-blend-multiply sr-tv-hero-in" style={rise(i === 0 ? 0 : -REVEAL)}>
           <div className="h-full w-full sr-tv-float">
             <img src={p.image?.src} alt={p.image?.alt} className="h-full w-full object-contain mix-blend-multiply" />
           </div>
