@@ -63,7 +63,7 @@ export function ProductDetail({ id }: { id: string }) {
       </div>
 
       {/* Information */}
-      <div className="sr-no-scrollbar order-1 flex flex-col overflow-y-auto pb-[14vh] pl-[5vw] pr-[3.5vw] pt-[17vh]">
+      <div className="sr-no-scrollbar order-1 flex flex-col overflow-y-auto [mask-image:linear-gradient(to_bottom,transparent_0,transparent_11vh,black_16vh,black_86vh,transparent_92vh)] pb-[14vh] pl-[5vw] pr-[3.5vw] pt-[17vh]">
         <Eyebrow className="sr-anim-fade-up">
           {category?.name}
           {product.subcategory ? ` · ${product.subcategory}` : ""}
