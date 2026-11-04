@@ -38,7 +38,7 @@ const byIds = (ids: string[]) => ids.map(productById).filter((p): p is Product =
 
 /** Only products with sharp photos are shown on the big screen. */
 const SHARP = allProducts.filter((p) => p.image && /\/showroom\/(hd|web)\//.test(p.image.src));
-const ALL_IMAGES = [boardsStock, cutting, edging, granite, kitchen, kitchenBefore, wardrobe, office, ...SHARP.map((p) => p.image!.src)];
+const ALL_IMAGES = [boardsStock, cutting, edging, granite, kitchen, kitchenBefore, wardrobe, office, ...SHARP.map((p) => p.image!.src), ...SHARP.flatMap((p) => (p.inUse ? [p.inUse.src] : []))];
 
 /* ─── Building blocks ─────────────────────────────────────────────────────── */
 
@@ -116,7 +116,6 @@ function Dark({ children, className = "" }: { children: ReactNode; className?: s
 const OPEN_WORDS = ["Boards.", "Cutting.", "Edging.", "Fittings."];
 
 function SceneOpen() {
-  const i = useTicker(OPEN_WORDS.length, 1900, REVEAL + 500);
   return (
     <Bone className="grid grid-cols-[44fr_56fr] gap-[3vw] px-[4vw] py-[5vh]">
       <div className="flex flex-col justify-between">
@@ -125,22 +124,67 @@ function SceneOpen() {
           <p className="sr-tv-tag text-ember sr-tv-rise" style={rise(200)}>
             Everything for the job
           </p>
-          <div className="relative mt-[1.6vh] h-[12vh] overflow-hidden border-y border-ink-on-bone/20">
-            <span key={i} className="absolute inset-y-0 left-0 flex items-center sr-tv-h1 sr-tv-word">
-              {OPEN_WORDS[i]}
-            </span>
-          </div>
-          <div className="mt-[2vh] flex gap-[0.5vw]">
+          <ul className="mt-[2vh] border-t border-ink-on-bone/20">
             {OPEN_WORDS.map((w, n) => (
-              <span key={w} className={`h-[0.6vh] w-[3vw] transition-colors duration-500 ${n === i ? "bg-ember" : "bg-ink-on-bone/15"}`} />
+              <li key={w} className="flex items-baseline gap-[1.2vw] border-b border-ink-on-bone/20 py-[1vh] sr-tv-slide-l" style={rise(450 + n * 380)}>
+                <span className="w-[2.6vw] sr-tv-tag text-ember sr-tv-num">{String(n + 1).padStart(2, "0")}</span>
+                <span className="sr-tv-h2">{w}</span>
+              </li>
             ))}
-          </div>
-          <p className="sr-tv-body mt-[3vh] max-w-[32vw] text-ink-on-bone/75 sr-tv-rise" style={rise(500)}>
+          </ul>
+          <p className="sr-tv-body mt-[3vh] max-w-[32vw] text-ink-on-bone/75 sr-tv-rise" style={rise(2200)}>
             Board supply, precision cutting, edging and hardware — on Khami Rd, Bulawayo.
           </p>
         </div>
       </div>
       <Plate src={boardsStock} caption="Board stock" move="a" />
+    </Bone>
+  );
+}
+
+/** Studio shot on the shelf, then the same part fitted in a room. */
+const SHELF_TO_HOME = ["neo-mixer", "enviro-bins", "garment-rack"];
+const UNVEIL_AT = 2600;
+const UNVEIL_STAGGER = 700;
+
+function SceneShelfToHome() {
+  const items = byIds(SHELF_TO_HOME).filter((p) => p.image && p.inUse);
+  return (
+    <Bone className="flex flex-col px-[4vw] py-[4.5vh]">
+      <div className="flex items-end justify-between border-b-2 border-ink-on-bone pb-[2vh]">
+        <div>
+          <Tag n="02">On the shelf, then in your home</Tag>
+          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(200)}>
+            From our shelves to your home.
+          </h2>
+        </div>
+        <p className="max-w-[26vw] text-right sr-tv-body text-ink-on-bone/70 sr-tv-rise" style={rise(400)}>
+          Every part on our shelves, ready to fit.
+        </p>
+      </div>
+      <div className="mt-[3vh] grid min-h-0 flex-1 grid-cols-3 gap-[2vw]">
+        {items.map((p, i) => {
+          const at = UNVEIL_AT + i * UNVEIL_STAGGER;
+          return (
+            <figure key={p.id} className="flex min-h-0 flex-col sr-tv-rise" style={rise(500 + i * 180)}>
+              <div className="relative min-h-0 flex-1 overflow-hidden bg-ivory">
+                <img src={p.inUse!.src} alt={p.inUse!.alt} className="absolute inset-0 h-full w-full object-cover sr-tv-kb-c" />
+                <div className="absolute inset-0 bg-ivory sr-tv-unveil" style={rise(at)}>
+                  <img src={p.image!.src} alt={p.image!.alt} className="absolute inset-0 h-full w-full object-contain mix-blend-multiply" />
+                </div>
+                <span className="absolute inset-y-0 w-[0.35vw] -translate-x-1/2 bg-ember sr-tv-unveil-bar" style={rise(at)} />
+                <span className="absolute left-[1vw] top-[1.6vh] bg-ink px-[0.7vw] py-[0.4vh] sr-tv-tag text-ivory [font-size:0.75rem]">
+                  <span className="sr-tv-in" style={rise(at)}>Fitted</span>
+                </span>
+              </div>
+              <figcaption className="mt-[1.6vh] flex items-baseline justify-between gap-[1vw] border-b border-ink-on-bone/15 pb-[1.2vh]">
+                <span className="font-display text-[clamp(1.2rem,1.6vw,2.1rem)] font-semibold leading-tight">{p.name}</span>
+                <span className="whitespace-nowrap sr-tv-tag text-ember">{p.codes?.[0] ?? "In stock"}</span>
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
     </Bone>
   );
 }
@@ -160,7 +204,7 @@ function SceneBeforeAfter() {
       <span className="absolute right-[2vw] top-[3vh] bg-ivory px-[1vw] py-[0.9vh] sr-tv-tag text-ink-on-bone">Before · bare shell</span>
       <span className="absolute left-[2vw] top-[3vh] bg-ember px-[1vw] py-[0.9vh] sr-tv-tag text-ivory">After · fitted kitchen</span>
       <div className="absolute bottom-[4vh] left-[2vw] max-w-[36vw] bg-bone p-[2vw] text-ink-on-bone sr-tv-slide-l" style={rise(200)}>
-        <Tag n="02" delay={300}>
+        <Tag n="03" delay={300}>
           Before &amp; after
         </Tag>
         <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(450)}>
@@ -192,7 +236,7 @@ function SceneCutting() {
     <Bone className="grid grid-cols-[42fr_58fr] gap-[3vw] px-[4vw] py-[5vh]">
       <Plate src={cutting} caption="Panel saw, cut to size" move="c" />
       <div className="flex min-h-0 flex-col justify-center">
-        <Tag n="03">Precision cutting</Tag>
+        <Tag n="04">Precision cutting</Tag>
         <h2 className="sr-tv-h2 mt-[2vh] sr-tv-rise" style={rise(200)}>
           Send your sizes. We cut.
         </h2>
@@ -270,7 +314,7 @@ function SceneEdging() {
   return (
     <FullPhoto
       src={edging}
-      n="04"
+      n="05"
       tag="Edging"
       move="c"
       title="A clean edge on every cut."
@@ -281,7 +325,7 @@ function SceneEdging() {
 }
 
 function SceneGranite() {
-  return <FullPhoto src={granite} n="06" side="right" move="b" tag="Granite" title="Granite tops." text="For kitchens, vanities and counters." facts={["Kitchens", "Vanities", "Counters"]} />;
+  return <FullPhoto src={granite} n="07" side="right" move="b" tag="Granite" title="Granite tops." text="For kitchens, vanities and counters." facts={["Kitchens", "Vanities", "Counters"]} />;
 }
 
 function SceneHowItWorks() {
@@ -465,12 +509,13 @@ const kitScene = (id: string, n: string) => {
   };
 };
 const SceneKitchenKit = kitScene("kitchen", "01");
-const SceneWardrobeKit = kitScene("wardrobe", "05");
-const SceneFurnitureKit = kitScene("furniture", "07");
+const SceneWardrobeKit = kitScene("wardrobe", "06");
+const SceneFurnitureKit = kitScene("furniture", "08");
 
 const SCENES: { id: string; label: string; render: () => ReactNode; duration?: number }[] = [
   { id: "open", label: "Armand", render: SceneOpen },
   { id: "kitchen-kit", label: "Your kitchen", render: SceneKitchenKit, duration: KIT_DURATION },
+  { id: "shelf-to-home", label: "Shelf to home", render: SceneShelfToHome },
   { id: "before-after", label: "Before & after", render: SceneBeforeAfter },
   { id: "cutting", label: "Cutting", render: SceneCutting },
   { id: "edging", label: "Edging", render: SceneEdging },
