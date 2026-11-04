@@ -231,7 +231,7 @@ function SceneCutting() {
       <Plate src={cutting} caption="Panel saw, cut to size" move="c" />
       <div className="flex min-h-0 flex-col justify-center">
         <Tag n="03">Precision cutting</Tag>
-        <h2 className="sr-tv-h1 mt-[2vh] sr-tv-rise [font-size:clamp(2.6rem,4.2vw,5.4rem)]" style={rise(200)}>
+        <h2 className="sr-tv-h2 mt-[2vh] sr-tv-rise" style={rise(200)}>
           Send your sizes. We cut.
         </h2>
         <div className="relative mt-[2.6vh] self-start border-2 border-ink-on-bone bg-ivory p-[0.8vw] sr-tv-rise" style={rise(400)}>
