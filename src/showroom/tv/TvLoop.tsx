@@ -565,7 +565,7 @@ function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number 
             <p className="sr-tv-tag text-ink-on-bone/70 [font-size:0.75rem]">One counter</p>
             <div>
               <p className="font-display text-[clamp(1.2rem,1.5vw,2rem)] font-semibold leading-tight">WhatsApp your list for a quote.</p>
-              <p className="mt-[1vh] font-display text-[clamp(0.95rem,1.1vw,1.5rem)] font-semibold leading-tight sr-tv-num">{contact.whatsappDisplay}</p>
+              <p className="mt-[1vh] whitespace-nowrap font-display text-[clamp(0.85rem,0.95vw,1.3rem)] font-semibold leading-tight sr-tv-num">{contact.whatsappDisplay}</p>
             </div>
           </div>
         </div>
