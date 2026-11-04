@@ -26,6 +26,8 @@ export function ProductVisual({
 }) {
   if (!image) return <Placeholder label="Product Image" tone="bone" className={className ?? ""} />;
   const isPhoto = image.style === "photo";
+  // Studio shots carry their own paper backdrop, so they show as framed tiles.
+  const isStudio = !isPhoto && image.src.includes("/studio/");
   return (
     <div className={cn("relative overflow-hidden bg-bone", className)}>
       {!isPhoto && (
@@ -42,7 +44,8 @@ export function ProductVisual({
           decoding="async"
           draggable={false}
           className={cn(
-            isPhoto ? "h-full w-full object-cover" : cn("object-contain mix-blend-multiply", fill ? "h-full w-full" : "max-h-full max-w-full"),
+            isPhoto ? "h-full w-full object-cover" : cn("object-contain mix-blend-multiply", fill && !isStudio ? "h-full w-full" : "max-h-full max-w-full"),
+            isStudio && "rounded-[1.2vw]",
             float && !isPhoto && "sr-anim-float",
             imgClassName,
           )}
