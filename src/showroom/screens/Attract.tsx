@@ -219,7 +219,7 @@ const SCENES: (() => ReactNode)[] = [
 
 /* ─── Attract loop ───────────────────────────────────────────────────────── */
 
-export function Attract({ onStart }: { onStart: () => void }) {
+export function Attract({ onStart, tv = false }: { onStart?: () => void; tv?: boolean }) {
   const [state, setState] = useState({ current: 0, prev: -1, cycle: 0 });
 
   useEffect(() => {
@@ -241,20 +241,21 @@ export function Attract({ onStart }: { onStart: () => void }) {
   }, []);
 
   useEffect(() => {
+    if (tv || !onStart) return;
     const onKey = () => onStart();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onStart]);
+  }, [onStart, tv]);
 
   const Current = SCENES[state.current]!;
   const Prev = state.prev >= 0 ? SCENES[state.prev]! : null;
 
   return (
     <div
-      className="absolute inset-0 z-30 cursor-pointer overflow-hidden bg-ink-deep"
-      onPointerDown={onStart}
-      role="button"
-      aria-label="Touch to explore the Armand showroom"
+      className={`absolute inset-0 z-30 overflow-hidden bg-ink-deep ${tv ? "cursor-none" : "cursor-pointer"}`}
+      onPointerDown={tv ? undefined : onStart}
+      role={tv ? undefined : "button"}
+      aria-label={tv ? "Armand showroom display" : "Touch to explore the Armand showroom"}
     >
       {Prev && (
         <div key={`${state.prev}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
@@ -286,7 +287,9 @@ export function Attract({ onStart }: { onStart: () => void }) {
             <span className="absolute inset-0 rounded-full border-2 border-ember sr-pulse-ring" />
             <span className="h-3 w-3 rounded-full bg-ember" />
           </span>
-          <span className="sr-label sr-anim-breathe">Touch to explore</span>
+          <span className="sr-label sr-anim-breathe">
+            {tv ? `WhatsApp ${SHOWROOM_CONFIG.contact.whatsappDisplay}` : "Touch to explore"}
+          </span>
         </div>
       </div>
     </div>
