@@ -16,7 +16,7 @@ export const spaces: Space[] = [
     name: "Kitchen",
     intro: "Kitchens designed and fitted, from boards and tops to the final handle.",
     image: { src: kitchen, alt: "Dark modern kitchen with handle-free cabinetry", style: "photo" },
-    imageIsIllustrative: true,
+    imageIsIllustrative: false,
     serviceIds: ["kitchens", "boards", "granite", "fittings"],
     hotspots: [
       { id: "k-tap", label: "Kitchen Mixer", x: 75.5, y: 41, target: { type: "product", id: "neo-mixer" } },
@@ -32,7 +32,7 @@ export const spaces: Space[] = [
     name: "Bedroom",
     intro: "Wardrobes cut, edged and professionally assembled.",
     image: { src: bedroom, alt: "Bedroom with full-height built-in wardrobe", style: "photo" },
-    imageIsIllustrative: true,
+    imageIsIllustrative: false,
     serviceIds: ["wardrobes", "boards", "edging"],
     hotspots: [
       { id: "b-rail", label: "Garment Storage", x: 60, y: 22, target: { type: "product", id: "garment-rack" } },
@@ -47,7 +47,7 @@ export const spaces: Space[] = [
     name: "Living",
     intro: "Furniture and interior design for the home.",
     image: { src: living, alt: "Living room with low storage unit on brass legs", style: "photo" },
-    imageIsIllustrative: true,
+    imageIsIllustrative: false,
     serviceIds: ["furniture", "boards", "cutting"],
     hotspots: [
       { id: "l-legs", label: "Furniture Legs", x: 51, y: 79, target: { type: "product", id: "brass-legs" } },
@@ -61,7 +61,7 @@ export const spaces: Space[] = [
     name: "Office",
     intro: "Furniture and interior design for the office.",
     image: { src: office, alt: "Home office with built-in desk and storage", style: "photo" },
-    imageIsIllustrative: true,
+    imageIsIllustrative: false,
     serviceIds: ["furniture", "boards", "fittings"],
     hotspots: [
       { id: "o-castor", label: "Castors", x: 37.5, y: 86, target: { type: "product", id: "castors-cpl" } },

@@ -99,7 +99,6 @@ function Plate({ src, caption, className = "", move = "a", delay = 0, children }
       </div>
       <figcaption className="mt-[1.2vh] flex justify-between sr-tv-tag text-ink-on-bone/55 [font-size:0.78rem]">
         <span>{caption}</span>
-        <span>Illustrative image</span>
       </figcaption>
     </figure>
   );
@@ -169,7 +168,6 @@ function SceneBeforeAfter() {
           Bring us the empty room and your sizes.
         </h2>
       </div>
-      <span className="absolute bottom-[1.4vh] right-[1.2vw] bg-ink-deep/70 px-[0.7vw] py-[0.5vh] sr-tv-tag text-ivory/70 [font-size:0.72rem]">Illustrative images</span>
     </div>
   );
 }
@@ -265,7 +263,6 @@ function FullPhoto({ src, n, tag, title, text, side = "left", move = "a", facts 
           </div>
         )}
       </div>
-      <span className="absolute right-[1.2vw] top-[1.6vh] bg-ink-deep/70 px-[0.7vw] py-[0.5vh] sr-tv-tag text-ivory/70 [font-size:0.72rem]">Illustrative image</span>
     </div>
   );
 }
@@ -511,7 +508,6 @@ function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number 
             {kit.intro}
           </p>
         </div>
-        <span className="absolute right-[1vw] top-[1.4vh] bg-ink-deep/70 px-[0.7vw] py-[0.5vh] sr-tv-tag text-ivory/70 [font-size:0.72rem]">Illustrative image</span>
       </div>
 
       {/* Checklist */}

@@ -49,7 +49,7 @@ export function Spaces() {
       </div>
       <div className="pointer-events-none absolute left-[5vw] top-[17vh]">
         <Eyebrow className="sr-anim-fade-up">Explore Spaces</Eyebrow>
-        <p className="sr-body mt-[1.4vh] text-ash sr-anim-fade [animation-delay:400ms]">Inspiration imagery · illustrative</p>
+        <p className="sr-body mt-[1.4vh] text-ash sr-anim-fade [animation-delay:400ms]">Inspiration imagery</p>
       </div>
     </div>
   );

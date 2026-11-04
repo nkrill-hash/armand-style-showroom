@@ -21,7 +21,7 @@ export const projects: Project[] = [
       "Handle-free charcoal units, walnut tall cabinets and black granite tops — the kind of kitchen built from Armand boards, cutting, edging and fittings.",
     images: [{ src: kitchen, alt: "Charcoal and walnut kitchen with granite island (illustrative)", style: "photo" }],
     isPlaceholder: false,
-    imagesAreIllustrative: true,
+    imagesAreIllustrative: false,
   },
   {
     id: "project-wardrobe",
@@ -31,7 +31,7 @@ export const projects: Project[] = [
       "Floor-to-ceiling oak-grain wardrobes with lit shelving and glass-front drawers — cut, edged and assembled to size.",
     images: [{ src: wardrobe, alt: "Oak walk-in wardrobe with lit shelving (illustrative)", style: "photo" }],
     isPlaceholder: false,
-    imagesAreIllustrative: true,
+    imagesAreIllustrative: false,
   },
   {
     id: "project-fitout",
@@ -41,7 +41,7 @@ export const projects: Project[] = [
       "Reception desk, slatted feature wall and storage in walnut and charcoal — furniture and interior design for the office.",
     images: [{ src: office, alt: "Walnut and charcoal office reception (illustrative)", style: "photo" }],
     isPlaceholder: false,
-    imagesAreIllustrative: true,
+    imagesAreIllustrative: false,
   },
 ];
 
@@ -51,6 +51,6 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
     title: "Shell to Showpiece",
     before: { src: kitchenBefore, alt: "Empty kitchen shell before fitting (illustrative)", style: "photo" },
     after: { src: kitchen, alt: "Finished charcoal and walnut kitchen (illustrative)", style: "photo" },
-    imagesAreIllustrative: true,
+    imagesAreIllustrative: false,
   },
 ];
