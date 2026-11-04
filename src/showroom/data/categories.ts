@@ -7,7 +7,7 @@ export const categories: Category[] = [
     name: "Hinges",
     short: "Concealed, soft close & butt",
     description: "Concealed, sinkless and butt hinges in brass, steel and black.",
-    cover: { src: "/showroom/web/butt-hinges.webp", alt: "Butt hinges", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/butt-hinges.jpg", alt: "Butt hinges", style: "cutout" },
     catalogueSections: ["Hinges"],
   },
   {
@@ -15,7 +15,7 @@ export const categories: Category[] = [
     name: "Handles & Hooks",
     short: "Levers, arches, bars & hooks",
     description: "Cabinet handles, door levers, knobs and hooks.",
-    cover: { src: "/showroom/web/lever-handle.webp", alt: "Lever handle", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/lever-handles.jpg", alt: "Lever handle", style: "cutout" },
     catalogueSections: ["Handles", "Knobs", "Hooks"],
   },
   {
@@ -23,7 +23,7 @@ export const categories: Category[] = [
     name: "Drawers & Storage",
     short: "Runners, trays & baskets",
     description: "Drawer slides, cutlery storage, baskets and crates.",
-    cover: { src: "/showroom/web/drawer-runners.webp", alt: "Drawer runners", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/runners.jpg", alt: "Drawer runners", style: "cutout" },
     catalogueSections: ["Drawer Slides", "Pine Crates & Baskets", "Kitchen Storage"],
   },
   {
@@ -31,7 +31,7 @@ export const categories: Category[] = [
     name: "Kitchen Systems",
     short: "Pantries, carousels & bins",
     description: "Pull-out pantries, corner solutions, wire ware and refuse bins.",
-    cover: { src: "/showroom/products/carousel-wb0069.webp", alt: "Corner carousel", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/carousel-wb0069.jpg", alt: "Corner carousel", style: "cutout" },
     catalogueSections: ["Kitchen Storage", "Wire Ware", "Refuse Bins"],
   },
   {
@@ -39,7 +39,7 @@ export const categories: Category[] = [
     name: "Sinks & Taps",
     short: "Fragranite, stainless & mixers",
     description: "Fragranite and stainless steel sinks with kitchen mixers.",
-    cover: { src: "/showroom/products/tap-neo-brass.webp", alt: "NEO kitchen mixer", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/neo-mixer.jpg", alt: "NEO kitchen mixer", style: "cutout" },
     catalogueSections: ["Sinks & Taps"],
   },
   {
@@ -47,7 +47,7 @@ export const categories: Category[] = [
     name: "Door Systems & Profiles",
     short: "Gola & glass door profiles",
     description: "Gola handle-free profiles and aluminium glass door systems.",
-    cover: { src: "/showroom/products/gola-c-profile.webp", alt: "Gola profile", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/gola-c.jpg", alt: "Gola profile", style: "cutout" },
     catalogueSections: ["Door Systems & Alu. Profiles", "Gola Profile Handles"],
   },
   {
@@ -55,7 +55,7 @@ export const categories: Category[] = [
     name: "Bedroom Systems",
     short: "Wardrobe storage",
     description: "Pull-down garment racks, shoe racks and wardrobe storage.",
-    cover: { src: "/showroom/products/garment-rack-3621.webp", alt: "Garment rack", style: "photo" },
+    cover: { src: "/showroom/hd/studio/garment-rack.jpg", alt: "Garment rack", style: "cutout" },
     catalogueSections: ["Storage Systems"],
   },
   {
@@ -63,7 +63,7 @@ export const categories: Category[] = [
     name: "Legs & Castors",
     short: "Furniture legs & castors",
     description: "Furniture legs and castors for cabinets, beds and tables.",
-    cover: { src: "/showroom/products/legs-brass-tube.webp", alt: "Brass legs", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/brass-legs.jpg", alt: "Brass legs", style: "cutout" },
     catalogueSections: ["Legs", "Castors"],
   },
   {
@@ -71,7 +71,7 @@ export const categories: Category[] = [
     name: "Locks, Tools & Adhesives",
     short: "Locks, nailers & sealants",
     description: "Cabinet locks, tools and consumables, adhesives and fillers.",
-    cover: { src: "/showroom/web/cabinet-lock.webp", alt: "Cabinet lock", style: "cutout" },
+    cover: { src: "/showroom/hd/studio/locks.jpg", alt: "Cabinet lock", style: "cutout" },
     catalogueSections: ["Locks", "Tools & Consumables", "Adhesives, Fillers & Sealants"],
   },
 ];
