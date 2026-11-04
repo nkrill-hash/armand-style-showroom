@@ -1,5 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TvLoop } from "@/showroom/tv/TvLoop";
+import { Attract } from "@/showroom/screens/Attract";
+
+function TvPage() {
+  return (
+    <div className="fixed inset-0">
+      <Attract tv />
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/tv")({
   head: () => ({
@@ -17,5 +25,5 @@ export const Route = createFileRoute("/tv")({
       { name: "theme-color", content: "#1e1d1f" },
     ],
   }),
-  component: TvLoop,
+  component: TvPage,
 });
