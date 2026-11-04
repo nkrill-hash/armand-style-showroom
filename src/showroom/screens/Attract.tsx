@@ -85,7 +85,7 @@ function SceneKitchenKit() {
           </h2>
           <p className="sr-lead mt-[3vh] text-ash sr-anim-fade-up [animation-delay:900ms]">{kit.intro}</p>
           <p className="sr-label mt-[5vh] text-ivory sr-anim-fade-up [animation-delay:2600ms]">
-            WhatsApp your list · <span className="text-ember">{SHOWROOM_CONFIG.contact.whatsappDisplay}</span>
+            WhatsApp your list · <span className="whitespace-nowrap text-ember">{SHOWROOM_CONFIG.contact.whatsappDisplay}</span>
           </p>
         </div>
       </div>
