@@ -614,7 +614,19 @@ function useClock() {
   return now;
 }
 
-function Header({ index, cycle }: { index: number; cycle: number }) {
+function TouchPrompt() {
+  return (
+    <span className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-[0.8vw] rounded-full bg-ember px-[1.4vw] py-[0.9vh] text-ink-on-bone">
+      <span className="relative flex h-[1.8vh] w-[1.8vh] items-center justify-center">
+        <span className="absolute inset-0 rounded-full border-2 border-ink-on-bone sr-pulse-ring" />
+        <span className="h-[0.9vh] w-[0.9vh] rounded-full bg-ink-on-bone" />
+      </span>
+      <span className="sr-tv-tag sr-anim-breathe">Touch the screen to explore</span>
+    </span>
+  );
+}
+
+function Header({ index, cycle, touch }: { index: number; cycle: number; touch?: boolean }) {
   const clock = useClock();
   const scene = SCENES[index]!;
   const key = `${scene.id}-${cycle}`;
@@ -634,6 +646,7 @@ function Header({ index, cycle }: { index: number; cycle: number }) {
           </span>
         ))}
       </div>
+      {touch && <TouchPrompt />}
       <span className="w-[5vw] text-right sr-tv-tag sr-tv-num text-ivory/60">{clock ?? ""}</span>
       <span key={`bar-${key}`} className="absolute inset-x-0 bottom-0 h-[0.35vh] bg-ember sr-tv-fill" style={{ "--sr-tv-dur": `${dur}ms` } as CSSProperties} />
     </header>
@@ -675,7 +688,11 @@ function ContactStrip() {
 
 /* ─── Loop ───────────────────────────────────────────────────────────────── */
 
-export function TvLoop() {
+/**
+ * The hands-free loop. On /tv it runs alone; the kiosk also uses it as its
+ * idle "attract" screen by passing `onStart`, so any touch opens the showroom.
+ */
+export function TvLoop({ onStart }: { onStart?: () => void } = {}) {
   const [state, setState] = useState({ current: 0, prev: -1, cycle: 0 });
 
   useEffect(() => {
@@ -703,13 +720,20 @@ export function TvLoop() {
     request();
     const onVis = () => document.visibilityState === "visible" && request();
     document.addEventListener("visibilitychange", onVis);
-    const reload = RELOAD_EVERY_HOURS > 0 ? setTimeout(() => window.location.reload(), RELOAD_EVERY_HOURS * 3600_000) : undefined;
+    const reload = !onStart && RELOAD_EVERY_HOURS > 0 ? setTimeout(() => window.location.reload(), RELOAD_EVERY_HOURS * 3600_000) : undefined;
     return () => {
       document.removeEventListener("visibilitychange", onVis);
       if (reload) clearTimeout(reload);
       lock?.release().catch(() => {});
     };
-  }, []);
+  }, [onStart]);
+
+  useEffect(() => {
+    if (!onStart) return;
+    const onKey = () => onStart();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onStart]);
 
   const toggleFullscreen = () => {
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
@@ -724,13 +748,15 @@ export function TvLoop() {
 
   return (
     <main
-      className="sr-root fixed inset-0 cursor-none select-none overflow-hidden bg-ink-deep font-body text-ivory"
+      className={`sr-root fixed inset-0 select-none overflow-hidden bg-ink-deep font-body text-ivory ${onStart ? "z-30 cursor-pointer" : "cursor-none"}`}
       style={{ "--sr-speed": SHOWROOM_CONFIG.kiosk.ANIMATION_SPEED } as CSSProperties}
-      onDoubleClick={toggleFullscreen}
+      onDoubleClick={onStart ? undefined : toggleFullscreen}
+      onPointerDown={onStart}
+      role={onStart ? "button" : undefined}
       onContextMenu={(e) => e.preventDefault()}
-      aria-label={`${brand.fullName} showroom display`}
+      aria-label={onStart ? "Touch to explore the Armand showroom" : `${brand.fullName} showroom display`}
     >
-      <Header index={state.current} cycle={state.cycle} />
+      <Header index={state.current} cycle={state.cycle} touch={!!onStart} />
       <div className="absolute inset-x-0 bottom-[11vh] top-[7vh] overflow-hidden">
         {prev && Prev && (
           <div key={`${prev.id}-${state.prev > state.current ? state.cycle - 1 : state.cycle}`} className="absolute inset-0">
