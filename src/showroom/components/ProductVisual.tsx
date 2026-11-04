@@ -46,8 +46,8 @@ export function ProductVisual({
               ? undefined
               : {
                   // Fade the edges so studio shots on paper melt into the plinth.
-                  maskImage: "radial-gradient(ellipse 72% 72% at 50% 50%, #000 62%, transparent 100%)",
-                  WebkitMaskImage: "radial-gradient(ellipse 72% 72% at 50% 50%, #000 62%, transparent 100%)",
+                  maskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
                 }
           }
           className={cn(
