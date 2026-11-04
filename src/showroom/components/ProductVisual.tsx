@@ -41,17 +41,10 @@ export function ProductVisual({
           loading={eager ? "eager" : "lazy"}
           decoding="async"
           draggable={false}
-          style={
-            isPhoto
-              ? undefined
-              : {
-                  // Fade the edges so studio shots on paper melt into the plinth.
-                  maskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
-                  WebkitMaskImage: "radial-gradient(closest-side, #000 72%, transparent 100%)",
-                }
-          }
           className={cn(
             isPhoto ? "h-full w-full object-cover" : cn("object-contain mix-blend-multiply", fill ? "h-full w-full" : "max-h-full max-w-full"),
+            // Studio shots carry their own paper backdrop: frame them as tiles.
+            !isPhoto && image.src.includes("/studio/") && "rounded-[1.2vw]",
             float && !isPhoto && "sr-anim-float",
             imgClassName,
           )}
