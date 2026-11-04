@@ -1,7 +1,5 @@
 import type { Product } from "../types";
 
-const P = "/showroom/products";
-const W = "/showroom/web";
 /** Lovable AI studio shots and in-use shots, one per product (1200² / 1600×1200). */
 const S = "/showroom/hd/studio";
 const U = "/showroom/hd/in-use";
@@ -292,7 +290,7 @@ export const products: Product[] = [
     categoryId: "kitchen",
     subcategory: "Corner Storage",
     codes: ["WK03"],
-    image: { src: `${S}/corner-swing.jpg`, alt: "Corner swing pull out fitted in a kitchen corner cabinet", style: "cutout" },
+    image: { src: `${S}/corner-swing.jpg`, alt: "Corner swing pull out", style: "cutout" },
     inUse: { src: `${U}/corner-swing.jpg`, alt: "Corner swing pull out fitted in a kitchen corner cabinet in use", style: "photo" },
     specs: [{ label: "Finish", value: "Black" }, { label: "Handing", value: "Available in Left or Right Hand Side" }],
     cataloguePage: 46,
@@ -566,8 +564,8 @@ export const products: Product[] = [
     name: "Adhesives, Fillers & Sealants",
     categoryId: "fixings",
     subcategory: "Adhesives",
-    image: { src: `${S}/adhesives.jpg`, alt: "Tube of white acrylic sealant", style: "cutout" },
-    inUse: { src: `${U}/adhesives.jpg`, alt: "Tube of white acrylic sealant in use", style: "photo" },
+    image: { src: `${S}/adhesives.jpg`, alt: "Sealant, wood glue and filler", style: "cutout" },
+    inUse: { src: `${U}/adhesives.jpg`, alt: "Sealant, wood glue and filler in use", style: "photo" },
     description: "Contact adhesives, wood glues, hot melt, fillers, thinners and acrylic sealants.",
     options: {
       title: "Ranges",

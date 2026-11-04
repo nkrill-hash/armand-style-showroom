@@ -23,6 +23,8 @@ export interface Product {
   series?: string;
   codes?: string[];
   image: ProductImage | null;
+  /** Optional second photo showing the product fitted in a room. */
+  inUse?: ProductImage;
   description?: string;
   specs?: { label: string; value: string }[];
   options?: { title: string; items: ProductOption[] };
