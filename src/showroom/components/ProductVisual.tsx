@@ -41,6 +41,15 @@ export function ProductVisual({
           loading={eager ? "eager" : "lazy"}
           decoding="async"
           draggable={false}
+          style={
+            isPhoto
+              ? undefined
+              : {
+                  // Fade the edges so studio shots on paper melt into the plinth.
+                  maskImage: "radial-gradient(ellipse 72% 72% at 50% 50%, #000 62%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(ellipse 72% 72% at 50% 50%, #000 62%, transparent 100%)",
+                }
+          }
           className={cn(
             isPhoto ? "h-full w-full object-cover" : cn("object-contain mix-blend-multiply", fill ? "h-full w-full" : "max-h-full max-w-full"),
             float && !isPhoto && "sr-anim-float",
