@@ -554,7 +554,7 @@ function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number 
                   )}
                 </div>
                 <div className="px-[0.7vw] pb-[1vh] pt-[0.8vh]">
-                  <p className="truncate font-body text-[clamp(0.95rem,1vw,1.3rem)] font-semibold leading-tight">{t.title}</p>
+                  <p className="line-clamp-2 min-h-[2.5em] font-body text-[clamp(0.95rem,1vw,1.3rem)] font-semibold leading-tight">{t.title}</p>
                   <p className="mt-[0.3vh] truncate sr-tv-tag text-ember [font-size:0.72rem]">{t.code}</p>
                 </div>
                 <span className={`absolute right-[0.6vw] top-[4.6vh] grid h-[3vh] w-[3vh] place-items-center bg-ember text-[1.6vh] text-ivory transition-opacity duration-300 ${i < shown ? "opacity-100" : "opacity-0"}`}>✓</span>
@@ -565,7 +565,7 @@ function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number 
             <p className="sr-tv-tag text-ink-on-bone/70 [font-size:0.75rem]">One counter</p>
             <div>
               <p className="font-display text-[clamp(1.2rem,1.5vw,2rem)] font-semibold leading-tight">WhatsApp your list for a quote.</p>
-              <p className="mt-[1vh] whitespace-nowrap font-display text-[clamp(1rem,1.2vw,1.6rem)] font-semibold sr-tv-num">{contact.whatsappDisplay}</p>
+              <p className="mt-[1vh] font-display text-[clamp(0.95rem,1.1vw,1.5rem)] font-semibold leading-tight sr-tv-num">{contact.whatsappDisplay}</p>
             </div>
           </div>
         </div>
