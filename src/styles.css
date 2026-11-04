@@ -463,7 +463,7 @@
 @keyframes sr-tv-kb-b { from { transform: scale(1.22) translate3d(-3%, 0, 0); } to { transform: scale(1.05) translate3d(2%, -1%, 0); } }
 @keyframes sr-tv-kb-c { from { transform: scale(1.12) translate3d(0, 4%, 0); } to { transform: scale(1.18) translate3d(0, -4%, 0); } }
 @keyframes sr-tv-sweep { 0% { transform: translate3d(-101%, 0, 0); } 45%, 55% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(101%, 0, 0); } }
-@keyframes sr-tv-in { 0%, 45% { clip-path: inset(0 0 0 100%); } 100% { clip-path: inset(0 0 0 0); } }
+@keyframes sr-tv-in { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
 @keyframes sr-tv-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes sr-tv-slide-l { from { opacity: 0; transform: translate3d(-6vw, 0, 0); } to { opacity: 1; transform: none; } }
 @keyframes sr-tv-slide-r { from { opacity: 0; transform: translate3d(6vw, 0, 0); } to { opacity: 1; transform: none; } }
