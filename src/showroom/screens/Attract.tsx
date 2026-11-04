@@ -288,7 +288,7 @@ export function Attract({ onStart, tv = false }: { onStart?: () => void; tv?: bo
             <span className="h-3 w-3 rounded-full bg-ember" />
           </span>
           <span className="sr-label sr-anim-breathe">
-            {tv ? `WhatsApp ${SHOWROOM_CONFIG.contact.whatsappDisplay ?? ""}` : "Touch to explore"}
+            {tv ? `WhatsApp ${SHOWROOM_CONFIG.contact.whatsappDisplay}` : "Touch to explore"}
           </span>
         </div>
       </div>
