@@ -137,7 +137,7 @@ function SceneWhatWeDo() {
       <figure className="absolute inset-y-0 right-0 w-[48vw] overflow-hidden sr-anim-fade [animation-delay:300ms]">
         <img src={boardFinishes} alt="Board finishes on the Armand showroom wall, Bulawayo" className="h-full w-full object-cover sr-anim-kenburns" />
         <div className="absolute inset-y-0 left-0 w-[14vw] bg-gradient-to-r from-ink-deep to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-[34vh] bg-gradient-to-t from-ink-deep/90 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[34vh]" style={{ background: "linear-gradient(to top, color-mix(in oklab, var(--sr-ink-deep) 92%, transparent), transparent)" }} />
         <figcaption className="absolute bottom-[12vh] right-[3vw] sr-label text-ivory">
           <span className="mr-[0.6vw] inline-block h-[0.25vh] w-[2vw] -translate-y-[0.4vh] bg-ember align-middle" />
           Board finishes on our showroom wall
