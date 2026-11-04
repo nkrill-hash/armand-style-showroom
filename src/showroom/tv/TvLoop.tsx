@@ -11,6 +11,7 @@ import { SHOWROOM_CONFIG } from "../config";
 import { attractFeaturedIds } from "../data/featured";
 import { productById, products as allProducts } from "../data/products";
 import { processSteps, services } from "../data/services";
+import { kits, type Kit, type KitItem } from "../data/kits";
 import { buildWhatsAppLink } from "../lib/links";
 import { Logo } from "../components/primitives";
 import { QrCode } from "../components/QrCode";
@@ -112,22 +113,6 @@ function Dark({ children, className = "" }: { children: ReactNode; className?: s
   return <div className={`absolute inset-0 bg-ink text-ivory ${className}`}>{children}</div>;
 }
 
-/** Checklist whose rows slide in and tick one after another. */
-function TickList({ items, start = 700, gap = 420 }: { items: string[]; start?: number; gap?: number }) {
-  return (
-    <ul className="border-t border-ink-on-bone/20">
-      {items.map((t, i) => (
-        <li key={t} className="flex items-center justify-between border-b border-ink-on-bone/20 py-[1.3vh] sr-tv-body sr-tv-slide-l" style={rise(start + i * gap)}>
-          <span>{t}</span>
-          <span className="grid h-[3.4vh] w-[3.4vh] place-items-center bg-ember text-ivory sr-tv-pop" style={rise(start + i * gap + 250)}>
-            ✓
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /* ─── Scenes ─────────────────────────────────────────────────────────────── */
 
 const OPEN_WORDS = ["Boards.", "Cutting.", "Edging.", "Fittings."];
@@ -158,26 +143,6 @@ function SceneOpen() {
         </div>
       </div>
       <Plate src={boardsStock} caption="Board stock" move="a" />
-    </Bone>
-  );
-}
-
-function SceneKitchen() {
-  return (
-    <Bone className="grid grid-cols-[34fr_66fr] gap-[3vw] px-[4vw] py-[5vh]">
-      <div className="flex flex-col justify-center">
-        <Tag n="01">Kitchen design &amp; fitting</Tag>
-        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(200)}>
-          Kitchens, designed and fitted.
-        </h2>
-        <p className="sr-tv-body mt-[2.4vh] text-ink-on-bone/75 sr-tv-rise" style={rise(400)}>
-          From boards and tops to the final handle.
-        </p>
-        <div className="mt-[3.4vh]">
-          <TickList items={["Boards & edging", "Granite tops", "Sinks & taps", "Hinges, runners, handles"]} />
-        </div>
-      </div>
-      <Plate src={kitchen} caption="Charcoal & walnut kitchen, granite island" move="b" />
     </Bone>
   );
 }
@@ -319,53 +284,6 @@ function SceneEdging() {
   );
 }
 
-function ProductCard({ p }: { p: Product }) {
-  return (
-    <div className="flex h-full w-[17vw] shrink-0 flex-col bg-ivory">
-      <div className="relative min-h-0 flex-1">
-        <img src={p.image?.src} alt={p.image?.alt} className="absolute inset-[7%] h-[86%] w-[86%] object-contain mix-blend-multiply" />
-      </div>
-      <div className="border-t border-ink-on-bone/10 px-[0.9vw] py-[1vh]">
-        <p className="sr-tv-tag text-ember [font-size:0.8rem]">{p.codes?.[0] ?? p.series ?? "In stock"}</p>
-        <p className="mt-[0.3vh] truncate font-body text-[clamp(0.95rem,1vw,1.3rem)] font-medium">{p.name}</p>
-      </div>
-    </div>
-  );
-}
-
-function SceneCatalogue() {
-  const count = useCountUp(700, REVEAL + 300);
-  const half = Math.ceil(SHARP.length / 2);
-  const rows = [SHARP.slice(0, half), SHARP.slice(half)];
-  return (
-    <Bone className="flex flex-col py-[4.5vh]">
-      <div className="mx-[4vw] flex items-end justify-between border-b-2 border-ink-on-bone pb-[2vh]">
-        <div>
-          <Tag n="05">Fittings · Product Range 2026</Tag>
-          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(200)}>
-            Hinges to sinks, on the shelf.
-          </h2>
-        </div>
-        <p className="text-right">
-          <span className="block sr-tv-h1 sr-tv-num text-ember">{count}+</span>
-          <span className="sr-tv-tag text-ink-on-bone/60">items in the catalogue</span>
-        </p>
-      </div>
-      <div className="mt-[2.6vh] flex min-h-0 flex-1 flex-col gap-[1.4vh] overflow-hidden sr-tv-rise" style={rise(300)}>
-        {rows.map((row, r) => (
-          <div key={r} className="min-h-0 flex-1">
-            <div className={`flex h-full w-max gap-[0.8vw] ${r === 0 ? "sr-tv-marquee" : "sr-tv-marquee-rev"}`}>
-              {[...row, ...row, ...row, ...row].map((p, i) => (
-                <ProductCard key={`${p.id}-${i}`} p={p} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Bone>
-  );
-}
-
 function SceneSpotlight() {
   const items = byIds(attractFeaturedIds);
   const per = SCENE_DURATION / Math.max(1, items.length);
@@ -429,28 +347,8 @@ function SceneSpotlight() {
   );
 }
 
-function SceneWardrobe() {
-  return (
-    <Bone className="grid grid-cols-[62fr_38fr] gap-[3vw] px-[4vw] py-[5vh]">
-      <Plate src={wardrobe} caption="Oak walk-in wardrobe" move="a" />
-      <div className="flex flex-col justify-center">
-        <Tag n="06">Wardrobes</Tag>
-        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(200)}>
-          Wardrobes, cut, edged and assembled.
-        </h2>
-        <p className="sr-tv-body mt-[2.4vh] text-ink-on-bone/75 sr-tv-rise" style={rise(400)}>
-          Built to your room.
-        </p>
-        <div className="mt-[3.4vh]">
-          <TickList items={["Shelving", "Hanging rails", "Drawers", "Shoe racks"]} />
-        </div>
-      </div>
-    </Bone>
-  );
-}
-
 function SceneGranite() {
-  return <FullPhoto src={granite} n="07" side="right" move="b" tag="Granite" title="Granite tops." text="For kitchens, vanities and counters." facts={["Kitchens", "Vanities", "Counters"]} />;
+  return <FullPhoto src={granite} n="06" side="right" move="b" tag="Granite" title="Granite tops." text="For kitchens, vanities and counters." facts={["Kitchens", "Vanities", "Counters"]} />;
 }
 
 function SceneServices() {
@@ -459,7 +357,7 @@ function SceneServices() {
   return (
     <Dark className="grid grid-cols-[48fr_52fr] gap-[4vw] px-[4vw] py-[4.5vh]">
       <div className="flex min-h-0 flex-col">
-        <Tag n="08" tone="ivory">
+        <Tag n="07" tone="ivory">
           What we do
         </Tag>
         <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(200)}>
@@ -491,26 +389,6 @@ function SceneServices() {
         </div>
       </div>
     </Dark>
-  );
-}
-
-function SceneOffice() {
-  return (
-    <Bone className="grid grid-cols-[34fr_66fr] gap-[3vw] px-[4vw] py-[5vh]">
-      <div className="flex flex-col justify-center">
-        <Tag n="09">Furniture &amp; interiors</Tag>
-        <h2 className="sr-tv-h1 mt-[3vh] sr-tv-rise" style={rise(200)}>
-          For the home and the office.
-        </h2>
-        <p className="sr-tv-body mt-[2.4vh] text-ink-on-bone/75 sr-tv-rise" style={rise(400)}>
-          Made from the boards on our racks.
-        </p>
-        <div className="mt-[3.4vh]">
-          <TickList items={["Reception desks", "Storage walls", "Shelving", "Furniture"]} />
-        </div>
-      </div>
-      <Plate src={office} caption="Office reception desk & storage wall" move="c" />
-    </Bone>
   );
 }
 
@@ -595,18 +473,129 @@ function SceneCta() {
   );
 }
 
-const SCENES: { id: string; label: string; render: () => ReactNode }[] = [
+/* ─── "All you need for your …" kits ─────────────────────────────────────── */
+
+/** Time the room photo is shown full-width before it docks to the left. */
+const KIT_DOCK = 2400;
+const KIT_STAGGER = 160;
+
+function kitTile(item: KitItem) {
+  if (item.kind === "service") return { title: item.title, code: "Service", src: item.image, cutout: false };
+  const p = productById(item.productId);
+  return { title: p?.name ?? "", code: p?.codes?.[0] ?? p?.series ?? "In stock", src: p?.image?.src ?? "", cutout: true };
+}
+
+function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number }) {
+  const total = kit.items.length;
+  const tilesAt = KIT_DOCK + 500;
+  const listedAt = tilesAt + total * KIT_STAGGER + 300;
+  const every = (duration - REVEAL - listedAt - 400) / total;
+  const active = useTicker(total, every, REVEAL + listedAt);
+  const shown = useCountUp(total, REVEAL + tilesAt, total * KIT_STAGGER + 200);
+  const cols = total + 1 > 8 ? 5 : 4;
+  const current = kitTile(kit.items[active]!);
+  return (
+    <Bone className="overflow-hidden">
+      {/* Room photo: full screen first, then docks left as the checklist arrives. */}
+      <div className="absolute inset-y-0 left-0 overflow-hidden bg-ink sr-tv-kit-dock" style={{ animationDelay: `${REVEAL + KIT_DOCK}ms` }}>
+        <img src={kit.hero} alt="" className="absolute inset-0 h-full w-full object-cover sr-tv-kb-a" style={{ animationDuration: `${duration + 1000}ms` }} />
+        <div className="absolute bottom-[4vh] left-[2vw] right-[2vw] max-w-[34vw] bg-bone p-[2vw] text-ink-on-bone sr-tv-slide-l" style={rise(150)}>
+          <span className="absolute inset-y-0 left-0 w-[0.4vw] origin-top bg-ember sr-anim-line" style={rise(450)} />
+          <Tag n={n} delay={300}>
+            {kit.room}
+          </Tag>
+          <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(450)}>
+            {kit.title}
+          </h2>
+          <p className="sr-tv-body mt-[1.4vh] text-ink-on-bone/75 sr-tv-rise" style={rise(650)}>
+            {kit.intro}
+          </p>
+        </div>
+        <span className="absolute right-[1vw] top-[1.4vh] bg-ink-deep/70 px-[0.7vw] py-[0.5vh] sr-tv-tag text-ivory/70 [font-size:0.72rem]">Illustrative image</span>
+      </div>
+
+      {/* Checklist */}
+      <div className="absolute inset-y-0 left-[38vw] right-[3vw] flex flex-col py-[3.6vh]">
+        <div className="flex items-end justify-between border-b-2 border-ink-on-bone pb-[1.4vh] sr-tv-rise" style={rise(tilesAt - 200)}>
+          <div>
+            <p className="sr-tv-tag text-ember">Your {kit.id === "furniture" ? "office" : kit.id} checklist</p>
+            <p key={active} className="mt-[0.6vh] sr-tv-body sr-tv-slide-r">
+              <span className="font-semibold">{current.title}</span>
+              <span className="text-ink-on-bone/60"> — {kit.items[active]!.need}</span>
+            </p>
+          </div>
+          <p className="whitespace-nowrap text-right">
+            <span className="font-display text-[clamp(2rem,3vw,4rem)] font-semibold leading-none sr-tv-num">
+              {String(shown).padStart(2, "0")}
+              <span className="text-ink-on-bone/35">/{String(total).padStart(2, "0")}</span>
+            </span>
+            <span className="block sr-tv-tag text-ink-on-bone/55 [font-size:0.75rem]">on our shelves</span>
+          </p>
+        </div>
+        <div className={`mt-[2vh] grid min-h-0 flex-1 grid-rows-2 gap-[0.8vw] ${cols === 5 ? "grid-cols-5" : "grid-cols-4"}`}>
+          {kit.items.map((item, i) => {
+            const t = kitTile(item);
+            const on = i === active;
+            return (
+              <div
+                key={i}
+                className={`relative flex min-h-0 flex-col bg-ivory transition-[box-shadow] duration-500 sr-tv-pop ${on ? "shadow-[inset_0_0_0_0.25vw_var(--color-ember)]" : ""}`}
+                style={{ ...rise(tilesAt + i * KIT_STAGGER), transformOrigin: "center bottom" }}
+              >
+                <div className="flex items-center justify-between px-[0.7vw] pt-[1vh]">
+                  <span className={`px-[0.4vw] py-[0.2vh] sr-tv-tag [font-size:0.75rem] transition-colors duration-500 ${on ? "bg-ember text-ivory" : "bg-ink-on-bone/10 text-ink-on-bone/70"}`}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className="sr-tv-tag text-ink-on-bone/55 [font-size:0.72rem]">{item.label}</span>
+                </div>
+                <div className="relative mx-[0.7vw] mt-[0.8vh] min-h-0 flex-1 overflow-hidden">
+                  {t.cutout ? (
+                    <img src={t.src} alt="" className={`absolute inset-[4%] h-[92%] w-[92%] object-contain mix-blend-multiply transition-transform duration-700 ${on ? "scale-110" : "scale-100"}`} />
+                  ) : (
+                    <img src={t.src} alt="" className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${on ? "scale-110" : "scale-100"}`} />
+                  )}
+                </div>
+                <div className="px-[0.7vw] pb-[1vh] pt-[0.8vh]">
+                  <p className="line-clamp-2 min-h-[2.5em] font-body text-[clamp(0.95rem,1vw,1.3rem)] font-semibold leading-tight">{t.title}</p>
+                  <p className="mt-[0.3vh] truncate sr-tv-tag text-ember [font-size:0.72rem]">{t.code}</p>
+                </div>
+                <span className={`absolute right-[0.6vw] top-[4.6vh] grid h-[3vh] w-[3vh] place-items-center bg-ember text-[1.6vh] text-ivory transition-opacity duration-300 ${i < shown ? "opacity-100" : "opacity-0"}`}>✓</span>
+              </div>
+            );
+          })}
+          <div className="flex flex-col justify-between bg-ember p-[1vw] text-ink-on-bone sr-tv-pop" style={rise(tilesAt + total * KIT_STAGGER)}>
+            <p className="sr-tv-tag text-ink-on-bone/70 [font-size:0.75rem]">One counter</p>
+            <div>
+              <p className="font-display text-[clamp(1.2rem,1.5vw,2rem)] font-semibold leading-tight">WhatsApp your list for a quote.</p>
+              <p className="mt-[1vh] whitespace-nowrap font-display text-[clamp(0.85rem,0.95vw,1.3rem)] font-semibold leading-tight sr-tv-num">{contact.whatsappDisplay}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Bone>
+  );
+}
+
+const KIT_DURATION = 17000;
+const kitScene = (id: string, n: string) => {
+  const kit = kits.find((k) => k.id === id)!;
+  return function SceneKit() {
+    return <KitScene kit={kit} n={n} duration={KIT_DURATION} />;
+  };
+};
+const SceneKitchenKit = kitScene("kitchen", "01");
+const SceneWardrobeKit = kitScene("wardrobe", "05");
+const SceneFurnitureKit = kitScene("furniture", "08");
+
+const SCENES: { id: string; label: string; render: () => ReactNode; duration?: number }[] = [
   { id: "open", label: "Armand", render: SceneOpen },
-  { id: "kitchen", label: "Kitchens", render: SceneKitchen },
+  { id: "kitchen-kit", label: "Your kitchen", render: SceneKitchenKit, duration: KIT_DURATION },
   { id: "before-after", label: "Before & after", render: SceneBeforeAfter },
   { id: "cutting", label: "Cutting", render: SceneCutting },
   { id: "edging", label: "Edging", render: SceneEdging },
-  { id: "catalogue", label: "Fittings", render: SceneCatalogue },
+  { id: "wardrobe-kit", label: "Your wardrobe", render: SceneWardrobeKit, duration: KIT_DURATION },
   { id: "spotlight", label: "New in 2026", render: SceneSpotlight },
-  { id: "wardrobe", label: "Wardrobes", render: SceneWardrobe },
   { id: "granite", label: "Granite", render: SceneGranite },
   { id: "services", label: "What we do", render: SceneServices },
-  { id: "office", label: "Furniture", render: SceneOffice },
+  { id: "furniture-kit", label: "Your office", render: SceneFurnitureKit, duration: KIT_DURATION },
   { id: "how", label: "How it works", render: SceneHowItWorks },
   { id: "cta", label: "Get a quote", render: SceneCta },
 ];
@@ -629,6 +618,7 @@ function Header({ index, cycle }: { index: number; cycle: number }) {
   const clock = useClock();
   const scene = SCENES[index]!;
   const key = `${scene.id}-${cycle}`;
+  const dur = scene.duration ?? SCENE_DURATION;
   return (
     <header className="absolute inset-x-0 top-0 z-20 flex h-[7vh] items-center gap-[2vw] bg-ink-deep px-[2vw] text-ivory">
       <Logo className="h-[4.4vh] w-auto" />
@@ -640,12 +630,12 @@ function Header({ index, cycle }: { index: number; cycle: number }) {
         {SCENES.map((s, n) => (
           <span key={s.id} className="relative h-full w-[1.8vw] overflow-hidden bg-ivory/15">
             {n < index && <span className="absolute inset-0 bg-ivory/60" />}
-            {n === index && <span key={key} className="absolute inset-0 bg-ember sr-tv-fill" style={{ "--sr-tv-dur": `${SCENE_DURATION}ms` } as CSSProperties} />}
+            {n === index && <span key={key} className="absolute inset-0 bg-ember sr-tv-fill" style={{ "--sr-tv-dur": `${dur}ms` } as CSSProperties} />}
           </span>
         ))}
       </div>
       <span className="w-[5vw] text-right sr-tv-tag sr-tv-num text-ivory/60">{clock ?? ""}</span>
-      <span key={`bar-${key}`} className="absolute inset-x-0 bottom-0 h-[0.35vh] bg-ember sr-tv-fill" style={{ "--sr-tv-dur": `${SCENE_DURATION}ms` } as CSSProperties} />
+      <span key={`bar-${key}`} className="absolute inset-x-0 bottom-0 h-[0.35vh] bg-ember sr-tv-fill" style={{ "--sr-tv-dur": `${dur}ms` } as CSSProperties} />
     </header>
   );
 }
@@ -694,7 +684,7 @@ export function TvLoop() {
         const next = (s.current + 1) % SCENES.length;
         return { current: next, prev: s.current, cycle: next === 0 ? s.cycle + 1 : s.cycle };
       });
-    }, SCENE_DURATION);
+    }, SCENES[state.current]!.duration ?? SCENE_DURATION);
     return () => clearTimeout(t);
   }, [state.current]);
 
