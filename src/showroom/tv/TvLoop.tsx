@@ -8,9 +8,8 @@ import kitchenBefore from "@/assets/project-kitchen-before.jpg";
 import wardrobe from "@/assets/project-wardrobe.jpg";
 import office from "@/assets/project-office.jpg";
 import { SHOWROOM_CONFIG } from "../config";
-import { attractFeaturedIds } from "../data/featured";
 import { productById, products as allProducts } from "../data/products";
-import { processSteps, services } from "../data/services";
+import { processSteps } from "../data/services";
 import { kits, type Kit, type KitItem } from "../data/kits";
 import { buildWhatsAppLink } from "../lib/links";
 import { Logo } from "../components/primitives";
@@ -381,7 +380,6 @@ function kitTile(item: KitItem) {
 function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number }) {
   const total = kit.items.length;
   const tilesAt = KIT_DOCK + 500;
-  const listedAt = tilesAt + total * KIT_STAGGER + 300;
   const shown = useCountUp(total, REVEAL + tilesAt, total * KIT_STAGGER + 200);
   const cols = total + 1 > 8 ? 5 : 4;
   return (
@@ -421,22 +419,21 @@ function KitScene({ kit, n, duration }: { kit: Kit; n: string; duration: number 
         <div className={`mt-[2vh] grid min-h-0 flex-1 grid-rows-2 gap-[0.8vw] ${cols === 5 ? "grid-cols-5" : "grid-cols-4"}`}>
           {kit.items.map((item, i) => {
             const t = kitTile(item);
-            const on = false;
             return (
               <div
                 key={i}
-                className={`relative flex min-h-0 flex-col bg-ivory transition-[box-shadow] duration-500 sr-tv-pop ${on ? "shadow-[inset_0_0_0_0.25vw_var(--color-ember)]" : ""}`}
+                className={`relative flex min-h-0 flex-col bg-ivory transition-[box-shadow] duration-500 sr-tv-pop `}
                 style={{ ...rise(tilesAt + i * KIT_STAGGER), transformOrigin: "center bottom" }}
               >
                 <div className="flex items-center justify-between px-[0.7vw] pt-[1vh]">
-                  <span className={`px-[0.4vw] py-[0.2vh] sr-tv-tag [font-size:0.75rem] transition-colors duration-500 ${on ? "bg-ember text-ivory" : "bg-ink-on-bone/10 text-ink-on-bone/70"}`}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className={`px-[0.4vw] py-[0.2vh] sr-tv-tag [font-size:0.75rem] transition-colors duration-500 bg-ink-on-bone/10 text-ink-on-bone/70`}>{String(i + 1).padStart(2, "0")}</span>
                   <span className="sr-tv-tag text-ink-on-bone/55 [font-size:0.72rem]">{item.label}</span>
                 </div>
                 <div className="relative mx-[0.7vw] mt-[0.8vh] min-h-0 flex-1 overflow-hidden">
                   {t.cutout ? (
-                    <img src={t.src} alt="" className={`absolute inset-[4%] h-[92%] w-[92%] object-contain mix-blend-multiply transition-transform duration-700 ${on ? "scale-110" : "scale-100"}`} />
+                    <img src={t.src} alt="" className={`absolute inset-[4%] h-[92%] w-[92%] object-contain mix-blend-multiply transition-transform duration-700 scale-100`} />
                   ) : (
-                    <img src={t.src} alt="" className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${on ? "scale-110" : "scale-100"}`} />
+                    <img src={t.src} alt="" className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 scale-100`} />
                   )}
                 </div>
                 <div className="px-[0.7vw] pb-[1vh] pt-[0.8vh]">
