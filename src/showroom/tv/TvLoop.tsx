@@ -44,21 +44,6 @@ const ALL_IMAGES = [boardsStock, cutting, edging, granite, kitchen, kitchenBefor
 
 const rise = (ms: number): CSSProperties => ({ animationDelay: `${ms + REVEAL}ms` });
 
-function useTicker(count: number, every: number, startAfter = REVEAL) {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    let t: ReturnType<typeof setInterval> | undefined;
-    const s = setTimeout(() => {
-      t = setInterval(() => setI((n) => (n + 1) % count), every);
-    }, startAfter);
-    return () => {
-      clearTimeout(s);
-      if (t) clearInterval(t);
-    };
-  }, [count, every, startAfter]);
-  return i;
-}
-
 function useCountUp(target: number, delay: number, duration = 1800) {
   const [v, setV] = useState(0);
   useEffect(() => {
@@ -153,7 +138,7 @@ function SceneShelfToHome() {
     <Bone className="flex flex-col px-[4vw] py-[4.5vh]">
       <div className="flex items-end justify-between border-b-2 border-ink-on-bone pb-[2vh]">
         <div>
-          <Tag n="02">On the shelf, then in your home</Tag>
+          <Tag n="02">Shelf to home</Tag>
           <h2 className="sr-tv-h2 mt-[1.6vh] sr-tv-rise" style={rise(200)}>
             From our shelves to your home.
           </h2>
@@ -173,8 +158,8 @@ function SceneShelfToHome() {
                   <img src={p.image!.src} alt={p.image!.alt} className="absolute inset-0 h-full w-full object-contain mix-blend-multiply" />
                 </div>
                 <span className="absolute inset-y-0 w-[0.35vw] -translate-x-1/2 bg-ember sr-tv-unveil-bar" style={rise(at)} />
-                <span className="absolute left-[1vw] top-[1.6vh] bg-ink px-[0.7vw] py-[0.4vh] sr-tv-tag text-ivory [font-size:0.75rem]">
-                  <span className="sr-tv-in" style={rise(at)}>Fitted</span>
+                <span className="absolute left-[1vw] top-[1.6vh] bg-ink px-[0.7vw] py-[0.4vh] sr-tv-tag text-ivory sr-tv-in [font-size:0.75rem]" style={rise(at + 600)}>
+                  Fitted
                 </span>
               </div>
               <figcaption className="mt-[1.6vh] flex items-baseline justify-between gap-[1vw] border-b border-ink-on-bone/15 pb-[1.2vh]">
