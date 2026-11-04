@@ -24,7 +24,7 @@ import type { Product } from "../types";
  * Every scene carries continuous motion (camera moves, sequenced reveals,
  * marquees, counters) so the screen never sits still.
  * Every scene keeps the WhatsApp number and address on screen.
- * Room/workshop photos are AI concept images and carry an "Illustrative" caption.
+ * Slides never cycle through items one by one; the whole loop stays under ~2 minutes.
  */
 
 const { SCENE_DURATION, RELOAD_EVERY_HOURS } = SHOWROOM_CONFIG.tv;
@@ -164,7 +164,7 @@ function SceneShelfToHome() {
               </div>
               <figcaption className="mt-[1.6vh] flex items-baseline justify-between gap-[1vw] border-b border-ink-on-bone/15 pb-[1.2vh]">
                 <span className="font-display text-[clamp(1.2rem,1.6vw,2.1rem)] font-semibold leading-tight">{p.name}</span>
-                <span className="whitespace-nowrap sr-tv-tag text-ember">{p.codes?.[0] ?? "In stock"}</span>
+                <span className="whitespace-nowrap sr-tv-tag text-ember">{p.options?.items.find((o) => o.image?.src === p.image!.src)?.code ?? p.codes?.[0] ?? "In stock"}</span>
               </figcaption>
             </figure>
           );
