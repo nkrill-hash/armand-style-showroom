@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import heroBoards from "@/assets/hero-boards.jpg";
+import boardFinishes from "@/assets/real/board-finishes-wall.jpg";
 import { SHOWROOM_CONFIG } from "../config";
 import { attractFeaturedIds } from "../data/featured";
 import { productById } from "../data/products";
@@ -151,6 +152,12 @@ function SceneWhatWeDo() {
           From raw board to the final handle — everything for a finished job, under one roof.
         </p>
       </div>
+      <figure className="absolute bottom-[12vh] right-[6vw] top-[9vh] w-[26vw] overflow-hidden rounded-3xl border border-line sr-anim-fade-up [animation-delay:400ms]">
+        <img src={boardFinishes} alt="" className="h-full w-full object-cover sr-anim-kenburns" />
+        <figcaption className="absolute inset-x-0 bottom-0 bg-ink/80 px-[1.6vw] py-[1.4vh] sr-label text-ivory backdrop-blur">
+          Board finishes on our showroom wall
+        </figcaption>
+      </figure>
     </div>
   );
 }
@@ -186,7 +193,7 @@ function SceneFeatured() {
 function SceneCta() {
   return (
     <div className="absolute inset-0 bg-ink-deep">
-      <img src={spaces[1]!.image.src} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35 sr-anim-kenburns" />
+      <img src={spaces[2]!.image.src} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35 sr-anim-kenburns" />
       <div className="absolute inset-0 sr-vignette" />
       <div className="relative grid h-full grid-cols-[1fr_auto] items-center gap-[6vw] px-[7vw]">
         <div>
@@ -234,7 +241,7 @@ export function Attract({ onStart, tv = false }: { onStart?: () => void; tv?: bo
 
   // Preload imagery for the upcoming scenes
   useEffect(() => {
-    [heroBoards, ...spaces.map((s) => s.image.src), ...KITCHEN_KIT.items.map((it) => kitImage(it)?.src ?? "")].forEach((src) => {
+    [heroBoards, boardFinishes, ...spaces.map((s) => s.image.src), ...KITCHEN_KIT.items.map((it) => kitImage(it)?.src ?? "")].forEach((src) => {
       const img = new Image();
       img.src = src;
     });
