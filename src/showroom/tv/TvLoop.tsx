@@ -250,7 +250,7 @@ function SceneCutting() {
             ))}
           </svg>
           <div className="pointer-events-none absolute inset-y-0 left-0 w-full overflow-hidden">
-            <div className="h-full w-[0.3vw] bg-ember/80 sr-tv-saw" style={rise(800)} />
+            <div className="absolute inset-y-0 w-[0.3vw] bg-ember/80 sr-tv-saw" style={rise(800)} />
           </div>
         </div>
         <div className="mt-[1.6vh] grid grid-cols-2 gap-x-[2vw]">
