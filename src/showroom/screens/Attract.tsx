@@ -134,8 +134,14 @@ function SceneWhatWeDo() {
   }, []);
   return (
     <div className="absolute inset-0 bg-ink-deep">
-      <img src={heroBoards} alt="" className="absolute inset-0 h-full w-full object-cover opacity-70 sr-anim-kenburns-rev" />
-      <div className="absolute inset-0 sr-scrim-left" />
+      <figure className="absolute inset-y-0 right-0 w-[48vw] overflow-hidden sr-anim-fade [animation-delay:300ms]">
+        <img src={boardFinishes} alt="Board finishes on the Armand showroom wall, Bulawayo" className="h-full w-full object-cover sr-anim-kenburns" />
+        <div className="absolute inset-y-0 left-0 w-[14vw] bg-gradient-to-r from-ink-deep to-transparent" />
+        <figcaption className="absolute bottom-[12vh] right-[3vw] sr-label text-ivory">
+          <span className="mr-[0.6vw] inline-block h-[0.25vh] w-[2vw] -translate-y-[0.4vh] bg-ember align-middle" />
+          Board finishes on our showroom wall
+        </figcaption>
+      </figure>
       <div className="relative flex h-full flex-col justify-center px-[7vw]">
         <Eyebrow className="sr-anim-fade-up">What We Do</Eyebrow>
         <ul className="mt-[3vh]">
@@ -152,12 +158,6 @@ function SceneWhatWeDo() {
           From raw board to the final handle — everything for a finished job, under one roof.
         </p>
       </div>
-      <figure className="absolute bottom-[12vh] right-[6vw] top-[9vh] w-[26vw] overflow-hidden rounded-3xl border border-line sr-anim-fade-up [animation-delay:400ms]">
-        <img src={boardFinishes} alt="" className="h-full w-full object-cover sr-anim-kenburns" />
-        <figcaption className="absolute inset-x-0 bottom-0 bg-ink/80 px-[1.6vw] py-[1.4vh] sr-label text-ivory backdrop-blur">
-          Board finishes on our showroom wall
-        </figcaption>
-      </figure>
     </div>
   );
 }
