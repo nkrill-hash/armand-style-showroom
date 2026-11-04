@@ -16,3 +16,4 @@
 - The marketing-TV loop (`/tv`, `src/showroom/tv/TvLoop.tsx`) is a separate hands-free route that reuses showroom data/config; it must stay non-interactive and keep contact details on screen. The kiosk's idle attract screen reuses `TvLoop` via its `onStart` prop, so both screens tell the same story.
 - The /tv loop only shows products whose photo lives in `public/showroom/hd` or `public/showroom/web` (sharp sources); low-res catalogue crops stay off the big screen.
 - TV "All you need for your …" scenes are driven by `src/showroom/data/kits.ts`; kit products must reference catalogue ids with sharp photos (enforced by `src/test/tv-kits.test.ts`).
+- Each catalogue product has a studio photo in `public/showroom/hd/studio/<id>.jpg` and an in-use photo in `public/showroom/hd/in-use/<id>.jpg` (product `inUse` field); new products should get both so product pages keep the Product / In use switch.

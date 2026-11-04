@@ -31,7 +31,7 @@ export function ProductDetail({ id }: { id: string }) {
     <div className="absolute inset-0 grid grid-cols-[46fr_54fr] bg-ink">
       {/* Image stage */}
       <div className="relative order-2 overflow-hidden sr-anim-reveal-x">
-        <ProductVisual key={image?.src} image={image} eager float={!showInUse} fill className="absolute inset-0 sr-anim-fade" padding="p-[16%_14%_18%]" />
+        <ProductVisual key={image?.src} image={image} eager float={!showInUse} fill className="absolute inset-0 sr-anim-fade" padding="p-[22%_14%_14%]" />
         {product.inUse && (
           <div role="group" aria-label="Photo" className="absolute right-[3vw] top-[14vh] flex rounded-full bg-ink/85 p-[0.4vw] backdrop-blur">
             {(["product", "inUse"] as const).map((v) => (
