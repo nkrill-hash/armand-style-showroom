@@ -113,22 +113,6 @@ function Dark({ children, className = "" }: { children: ReactNode; className?: s
   return <div className={`absolute inset-0 bg-ink text-ivory ${className}`}>{children}</div>;
 }
 
-/** Checklist whose rows slide in and tick one after another. */
-function TickList({ items, start = 700, gap = 420 }: { items: string[]; start?: number; gap?: number }) {
-  return (
-    <ul className="border-t border-ink-on-bone/20">
-      {items.map((t, i) => (
-        <li key={t} className="flex items-center justify-between border-b border-ink-on-bone/20 py-[1.3vh] sr-tv-body sr-tv-slide-l" style={rise(start + i * gap)}>
-          <span>{t}</span>
-          <span className="grid h-[3.4vh] w-[3.4vh] place-items-center bg-ember text-ivory sr-tv-pop" style={rise(start + i * gap + 250)}>
-            ✓
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /* ─── Scenes ─────────────────────────────────────────────────────────────── */
 
 const OPEN_WORDS = ["Boards.", "Cutting.", "Edging.", "Fittings."];
